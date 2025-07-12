@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
-import NavigatedViewer from 'bpmn-js/lib/NavigatedViewer'
-import type { BaseViewerOptions, ImportXMLResult } from 'bpmn-js/lib/BaseViewer'
-import { layoutProcess } from 'bpmn-auto-layout'
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+
+import { layoutProcess } from 'bpmn-auto-layout'
+import type { BaseViewerOptions, ImportXMLResult } from 'bpmn-js/lib/BaseViewer'
+import NavigatedViewer from 'bpmn-js/lib/NavigatedViewer'
+import { useEffect, useRef, useState } from 'react'
+
 import { DEFAULT_BPMN_XML } from './bpmn-default-xml';
 
 interface BpmnViewerProps {

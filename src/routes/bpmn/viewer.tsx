@@ -1,7 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
-import BpmnViewer from '../../components/bpmn/Viewer'
-import BpmnExampleSelector from '../../components/bpmn/ExampleSelector'
 import { useState } from 'react'
+
+import BpmnExampleSelector from '../../components/bpmn/ExampleSelector'
+import BpmnViewer from '../../components/bpmn/Viewer'
 
 export const Route = createFileRoute('/bpmn/viewer')({
   component: RouteComponent,
