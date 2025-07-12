@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import Viewer from 'bpmn-js/lib/Viewer'
+import NavigatedViewer from 'bpmn-js/lib/NavigatedViewer'
 import type { BaseViewerOptions, ImportXMLResult } from 'bpmn-js/lib/BaseViewer'
 import { layoutProcess } from 'bpmn-auto-layout'
 
@@ -59,7 +59,7 @@ const DEFAULT_BPMN_XML = `<?xml version="1.0" encoding="UTF-8"?>
 
 function BpmnViewer({ xmlUrl, className = '', onLoad, onError }: BpmnViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const viewerRef = useRef<Viewer | null>(null)
+  const viewerRef = useRef<NavigatedViewer | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [hasDiagramInfo, setHasDiagramInfo] = useState(true)
@@ -75,7 +75,7 @@ function BpmnViewer({ xmlUrl, className = '', onLoad, onError }: BpmnViewerProps
       height: '100%'
     }
 
-    viewerRef.current = new Viewer(options)
+    viewerRef.current = new NavigatedViewer(options)
 
     return () => {
       if (viewerRef.current) {
