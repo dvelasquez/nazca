@@ -1,8 +1,13 @@
-import BpmnViewer from './components/bpmn/BpmnViewer'
-import BpmnExampleSelector from './components/bpmn/BpmnExampleSelector'
+import { createFileRoute } from '@tanstack/react-router'
+import BpmnViewer from '../../components/bpmn/BpmnViewer'
+import BpmnExampleSelector from '../../components/bpmn/BpmnExampleSelector'
 import { useState } from 'react'
 
-function App() {
+export const Route = createFileRoute('/bpmn/viewer')({
+  component: RouteComponent,
+})
+
+function RouteComponent() {
   const [selectedExample, setSelectedExample] = useState<string>('')
 
   function handleExampleSelect(xmlUrl: string) {
@@ -26,5 +31,3 @@ function App() {
     </>
   )
 }
-
-export default App

@@ -10,7 +10,14 @@ export const Route = createRootRoute({
         </Link>{' '}
         <Link to="/about" className="[&.active]:font-bold">
           About
+        </Link>{' '}
+        <Link to="/bpmn/viewer" className="[&.active]:font-bold">
+          BPMN Viewer
+        </Link>{' '}
+        <Link to="/bpmn/editor" className="[&.active]:font-bold">
+          BPMN Editor
         </Link>
+        
       </div>
       <hr />
       <Outlet />

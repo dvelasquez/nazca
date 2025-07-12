@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BpmnViewerRouteImport } from './routes/bpmn/viewer'
+import { Route as BpmnEditorRouteImport } from './routes/bpmn/editor'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -22,31 +24,49 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BpmnViewerRoute = BpmnViewerRouteImport.update({
+  id: '/bpmn/viewer',
+  path: '/bpmn/viewer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BpmnEditorRoute = BpmnEditorRouteImport.update({
+  id: '/bpmn/editor',
+  path: '/bpmn/editor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bpmn/editor': typeof BpmnEditorRoute
+  '/bpmn/viewer': typeof BpmnViewerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bpmn/editor': typeof BpmnEditorRoute
+  '/bpmn/viewer': typeof BpmnViewerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bpmn/editor': typeof BpmnEditorRoute
+  '/bpmn/viewer': typeof BpmnViewerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/' | '/about' | '/bpmn/editor' | '/bpmn/viewer'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '/about' | '/bpmn/editor' | '/bpmn/viewer'
+  id: '__root__' | '/' | '/about' | '/bpmn/editor' | '/bpmn/viewer'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BpmnEditorRoute: typeof BpmnEditorRoute
+  BpmnViewerRoute: typeof BpmnViewerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +85,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bpmn/viewer': {
+      id: '/bpmn/viewer'
+      path: '/bpmn/viewer'
+      fullPath: '/bpmn/viewer'
+      preLoaderRoute: typeof BpmnViewerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bpmn/editor': {
+      id: '/bpmn/editor'
+      path: '/bpmn/editor'
+      fullPath: '/bpmn/editor'
+      preLoaderRoute: typeof BpmnEditorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BpmnEditorRoute: BpmnEditorRoute,
+  BpmnViewerRoute: BpmnViewerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
