@@ -1,0 +1,35 @@
+# File Organization Structure
+```
+src/
+├── components/
+│   ├── bpmn/
+│   │   ├── BpmnViewer.tsx
+│   │   ├── BpmnEditor.tsx
+│   │   └── BpmnToolbar.tsx
+│   ├── common/
+│   │   ├── Button.tsx
+│   │   └── Modal.tsx
+│   └── layout/
+│       └── Sidebar.tsx
+├── hooks/
+│   ├── useBpmnModel.ts
+│   └── useProcessData.ts
+├── types/
+│   ├── bpmn.ts
+│   └── process.ts
+├── utils/
+│   ├── bpmn-helpers.ts
+│   └── process-utils.ts
+└── constants/
+    └── bpmn-constants.ts
+```
+
+# Import/Export Guidelines
+- Use ESM imports/exports exclusively
+- Use named exports for components and utilities
+- Use default exports sparingly (mainly for main components)
+- Group imports: React → third-party → internal → types → styles
+description:
+globs:
+alwaysApply: false
+---

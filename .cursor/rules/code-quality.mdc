@@ -1,0 +1,10 @@
+# Code Quality
+- Follow DRY principles
+- Write self-documenting code with clear names
+- Add JSDoc comments for complex functions
+- Keep functions small and focused
+- Use early returns to reduce nesting
+description:
+globs:
+alwaysApply: false
+---

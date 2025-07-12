@@ -1,0 +1,53 @@
+# Code Style & Architecture Principles
+
+## 1. Functional Programming Approach
+- **ALWAYS** use functional components over class components
+- Prefer pure functions and avoid side effects
+- Use function declarations over arrow functions for components
+- Avoid classes unless absolutely necessary (e.g., bpmn-js integration)
+
+## 2. TypeScript Best Practices
+- Use strict TypeScript configuration (already enabled)
+- Prefer interfaces over types for object shapes
+- Use meaningful type names that describe the data structure
+- Avoid `any` type - use proper typing or `unknown`
+- Use generic types when appropriate for reusable components
+
+## 3. Component Structure & Naming
+- Use descriptive, meaningful names for all functions and variables
+- Avoid abbreviations - prefer `handleProcessStart` over `handleStart`
+- Prefix event handlers with "handle" (e.g., `handleElementClick`, `handleProcessSave`)
+- Use PascalCase for components, camelCase for functions and variables
+- Structure files: exported component → subcomponents → helpers → types
+
+## 4. Modular Code Organization
+- **PREFER** small, focused files over large monolithic files
+- Split complex components into smaller, reusable pieces
+- Create separate files for utilities, types, and constants
+- Use barrel exports (index.ts) for clean imports
+- Organize by feature rather than by type
+
+## 5. State Management & Data Flow
+- **PREFER** prop drilling over context providers for simple state
+- **PREFER** calling data directly from components over providers
+- Use local state with `useState` for component-specific data
+- Avoid global state unless absolutely necessary
+- Keep state as close to where it's used as possible
+
+## 6. useEffect Guidelines
+- **USE SPARINGLY** - avoid useEffect when possible
+- Only use for side effects that can't be handled otherwise
+- Prefer event handlers and direct function calls
+- If useEffect can be avoided, don't use it
+- When needed, always include proper cleanup
+
+## 7. BPMN-js Integration
+- Create wrapper components for bpmn-js functionality
+- Use TypeScript interfaces for bpmn-js types
+- Handle bpmn-js events through proper event handlers
+- Keep bpmn-js logic isolated in dedicated modules
+- Use proper typing for bpmn-js callbacks and events
+description:
+globs:
+alwaysApply: false
+---

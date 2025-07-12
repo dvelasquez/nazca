@@ -1,0 +1,5 @@
+Remember: **Simplicity over complexity, readability over cleverness, and modularity over monolithic code.**
+description:
+globs:
+alwaysApply: false
+---

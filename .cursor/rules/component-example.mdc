@@ -1,0 +1,36 @@
+# Example Component Structure
+```typescript
+// Component with proper structure
+import { useState } from 'react'
+import type { BpmnElement } from '../types/bpmn'
+
+interface BpmnViewerProps {
+  processData: ProcessData
+  onElementSelect: (element: BpmnElement) => void
+}
+
+function BpmnViewer({ processData, onElementSelect }: BpmnViewerProps) {
+  const [isLoading, setIsLoading] = useState(false)
+  
+  function handleElementClick(element: BpmnElement) {
+    onElementSelect(element)
+  }
+  
+  function handleProcessLoad() {
+    // Direct function call, no useEffect needed
+    setIsLoading(true)
+    // ... load process
+  }
+  
+  return (
+    <div className="bpmn-viewer">
+      {/* Component JSX */}
+    </div>
+  )
+}
+
+export default BpmnViewer
+description:
+globs:
+alwaysApply: false
+---

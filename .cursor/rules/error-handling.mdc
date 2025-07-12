@@ -1,0 +1,9 @@
+# Error Handling
+- Use proper TypeScript error types
+- Implement error boundaries for React components
+- Handle bpmn-js errors gracefully
+- Provide meaningful error messages
+description:
+globs:
+alwaysApply: false
+---

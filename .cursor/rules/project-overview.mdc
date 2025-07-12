@@ -1,0 +1,6 @@
+# Project Overview
+This is a BPMN (Business Process Model and Notation) engine built with React, Vite, TypeScript, and bpmn-js. The project focuses on creating a modular, functional, and maintainable codebase for business process modeling and execution.
+description:
+globs:
+alwaysApply: false
+---
