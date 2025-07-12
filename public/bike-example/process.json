@@ -1,0 +1,590 @@
+{
+  "$type": "bpmn:Definitions",
+  "id": "Definitions_1",
+  "targetNamespace": "http://bpmn.io/schema/bpmn",
+  "rootElements": [
+    {
+      "$type": "bpmn:Collaboration",
+      "id": "Collaboration_1hcbhe2",
+      "participants": [
+        {
+          "$type": "bpmn:Participant",
+          "id": "Participant_0qjs9w3",
+          "name": "Client"
+        },
+        {
+          "$type": "bpmn:Participant",
+          "id": "Participant_0q1qv7y",
+          "name": "Technician"
+        }
+      ],
+      "messageFlows": [
+        {
+          "$type": "bpmn:MessageFlow",
+          "id": "Flow_1gwqmm2",
+          "name": "New Support Order"
+        },
+        {
+          "$type": "bpmn:MessageFlow",
+          "id": "Flow_0mhxyn9",
+          "name": "Resolution Confirmation"
+        }
+      ]
+    },
+    {
+      "$type": "bpmn:Process",
+      "id": "Process_1",
+      "name": "Bike Support",
+      "isExecutable": false,
+      "flowElements": [
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_1"
+        },
+        {
+          "$type": "bpmn:StartEvent",
+          "id": "StartEvent_1",
+          "name": "New Support Order",
+          "eventDefinitions": []
+        },
+        {
+          "$type": "bpmn:Task",
+          "id": "Task_1",
+          "name": "Create Support Order"
+        },
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_13pcqdm"
+        },
+        {
+          "$type": "bpmn:EndEvent",
+          "id": "Event_1v0frec",
+          "name": "Issue Resolved",
+          "eventDefinitions": []
+        },
+        {
+          "$type": "bpmn:Task",
+          "id": "Activity_0iermql",
+          "name": "Confirm Resolution"
+        }
+      ]
+    },
+    {
+      "$type": "bpmn:Process",
+      "id": "Process_1p1s1hu",
+      "flowElements": [
+        {
+          "$type": "bpmn:Task",
+          "id": "Activity_1t6m6gu",
+          "name": "Claim Support Ticket"
+        },
+        {
+          "$type": "bpmn:Task",
+          "id": "Activity_06ppu9j",
+          "name": "Assess Bike Issue"
+        },
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_0mmd997"
+        },
+        {
+          "$type": "bpmn:ExclusiveGateway",
+          "id": "Gateway_0fzpkai",
+          "name": "Repairable"
+        },
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_17ws2tj"
+        },
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_1axw7rh",
+          "name": "Can be repaired?"
+        },
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_0s7uzye",
+          "name": "Needs replacement"
+        },
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_134k8s2"
+        },
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_13ut4pj"
+        },
+        {
+          "$type": "bpmn:SequenceFlow",
+          "id": "Flow_1mwztmr"
+        },
+        {
+          "$type": "bpmn:Task",
+          "id": "Activity_0ifdkv0",
+          "name": "Close Support Ticket"
+        },
+        {
+          "$type": "bpmn:ExclusiveGateway",
+          "id": "Gateway_0tmik76"
+        },
+        {
+          "$type": "bpmn:Task",
+          "id": "Activity_0mg8ich",
+          "name": "Repair Bike"
+        },
+        {
+          "$type": "bpmn:Task",
+          "id": "Activity_11rhbxl",
+          "name": "Replace Bike"
+        }
+      ]
+    }
+  ],
+  "diagrams": [
+    {
+      "$type": "bpmndi:BPMNDiagram",
+      "id": "BPMNDiagram_1",
+      "plane": {
+        "$type": "bpmndi:BPMNPlane",
+        "id": "BPMNPlane_1",
+        "planeElement": [
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Participant_0qjs9w3_di",
+            "isHorizontal": true,
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 102,
+              "y": 30,
+              "width": 1146,
+              "height": 250
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "_BPMNShape_StartEvent_2",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 152,
+              "y": 132,
+              "width": 36,
+              "height": 36
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel",
+              "bounds": {
+                "$type": "dc:Bounds",
+                "x": 137,
+                "y": 175,
+                "width": 67,
+                "height": 27
+              }
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Task_1_di",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 250,
+              "y": 110,
+              "width": 100,
+              "height": 80
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Event_1v0frec_di",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 1182,
+              "y": 132,
+              "width": 36,
+              "height": 36
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel",
+              "bounds": {
+                "$type": "dc:Bounds",
+                "x": 1162,
+                "y": 175,
+                "width": 76,
+                "height": 14
+              }
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Activity_0iermql_di",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 1050,
+              "y": 110,
+              "width": 100,
+              "height": 80
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_1_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 188,
+                "y": 150
+              },
+              {
+                "$type": "dc:Point",
+                "x": 250,
+                "y": 150
+              }
+            ]
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_13pcqdm_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 1150,
+                "y": 150
+              },
+              {
+                "$type": "dc:Point",
+                "x": 1182,
+                "y": 150
+              }
+            ]
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Participant_0q1qv7y_di",
+            "isHorizontal": true,
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 102,
+              "y": 280,
+              "width": 1146,
+              "height": 340
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Activity_1t6m6gu_di",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 250,
+              "y": 370,
+              "width": 100,
+              "height": 80
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Activity_06ppu9j_di",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 400,
+              "y": 370,
+              "width": 100,
+              "height": 80
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Gateway_0fzpkai_di",
+            "isMarkerVisible": true,
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 555,
+              "y": 385,
+              "width": 50,
+              "height": 50
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel",
+              "bounds": {
+                "$type": "dc:Bounds",
+                "x": 553,
+                "y": 355,
+                "width": 54,
+                "height": 14
+              }
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Activity_0ifdkv0_di",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 1040,
+              "y": 430,
+              "width": 100,
+              "height": 80
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Gateway_0tmik76_di",
+            "isMarkerVisible": true,
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 935,
+              "y": 445,
+              "width": 50,
+              "height": 50
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Activity_0mg8ich_di",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 750,
+              "y": 370,
+              "width": 100,
+              "height": 80
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNShape",
+            "id": "Activity_11rhbxl_di",
+            "bounds": {
+              "$type": "dc:Bounds",
+              "x": 750,
+              "y": 480,
+              "width": 100,
+              "height": 80
+            },
+            "label": {
+              "$type": "bpmndi:BPMNLabel"
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_0mmd997_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 350,
+                "y": 410
+              },
+              {
+                "$type": "dc:Point",
+                "x": 400,
+                "y": 410
+              }
+            ]
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_17ws2tj_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 500,
+                "y": 410
+              },
+              {
+                "$type": "dc:Point",
+                "x": 555,
+                "y": 410
+              }
+            ]
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_1axw7rh_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 605,
+                "y": 410
+              },
+              {
+                "$type": "dc:Point",
+                "x": 750,
+                "y": 410
+              }
+            ],
+            "label": {
+              "$type": "bpmndi:BPMNLabel",
+              "bounds": {
+                "$type": "dc:Bounds",
+                "x": 636,
+                "y": 392,
+                "width": 85,
+                "height": 14
+              }
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_0s7uzye_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 580,
+                "y": 435
+              },
+              {
+                "$type": "dc:Point",
+                "x": 580,
+                "y": 520
+              },
+              {
+                "$type": "dc:Point",
+                "x": 750,
+                "y": 520
+              }
+            ],
+            "label": {
+              "$type": "bpmndi:BPMNLabel",
+              "bounds": {
+                "$type": "dc:Bounds",
+                "x": 644,
+                "y": 486,
+                "width": 61,
+                "height": 27
+              }
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_134k8s2_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 850,
+                "y": 520
+              },
+              {
+                "$type": "dc:Point",
+                "x": 960,
+                "y": 520
+              },
+              {
+                "$type": "dc:Point",
+                "x": 960,
+                "y": 495
+              }
+            ]
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_13ut4pj_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 850,
+                "y": 410
+              },
+              {
+                "$type": "dc:Point",
+                "x": 960,
+                "y": 410
+              },
+              {
+                "$type": "dc:Point",
+                "x": 960,
+                "y": 445
+              }
+            ]
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_1mwztmr_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 985,
+                "y": 470
+              },
+              {
+                "$type": "dc:Point",
+                "x": 1040,
+                "y": 470
+              }
+            ]
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_1gwqmm2_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 300,
+                "y": 190
+              },
+              {
+                "$type": "dc:Point",
+                "x": 300,
+                "y": 370
+              }
+            ],
+            "label": {
+              "$type": "bpmndi:BPMNLabel",
+              "bounds": {
+                "$type": "dc:Bounds",
+                "x": 266,
+                "y": 236,
+                "width": 67,
+                "height": 27
+              }
+            }
+          },
+          {
+            "$type": "bpmndi:BPMNEdge",
+            "id": "Flow_0mhxyn9_di",
+            "waypoint": [
+              {
+                "$type": "dc:Point",
+                "x": 1090,
+                "y": 430
+              },
+              {
+                "$type": "dc:Point",
+                "x": 1090,
+                "y": 190
+              }
+            ],
+            "label": {
+              "$type": "bpmndi:BPMNLabel",
+              "bounds": {
+                "$type": "dc:Bounds",
+                "x": 1058,
+                "y": 307,
+                "width": 63,
+                "height": 27
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

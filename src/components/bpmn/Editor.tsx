@@ -7,11 +7,84 @@ import { useEffect, useRef, useState } from 'react'
 
 import { DEFAULT_BPMN_XML } from './bpmn-default-xml';
 
+// Helper to safely serialize BPMN moddle objects
+function safeStringify(obj: any) {
+  const seen = new WeakSet()
+  return JSON.stringify(obj, function(key, value) {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) return
+      seen.add(value)
+    }
+    // Remove circular references and parent links
+    if (key === '$parent') return
+    return value
+  }, 2)
+}
+
+function storeProcessJson(modeler: Modeler | null, setProcessJson: (json: string) => void) {
+  if (!modeler) return
+  try {
+    // Get the full definitions object
+    const definitions = (modeler as any).getDefinitions ? (modeler as any).getDefinitions() : null
+    if (definitions) {
+      setProcessJson(safeStringify(definitions))
+    }
+  } catch (err) {
+    setProcessJson('')
+  }
+}
+
+function logCurrentModel(modeler: Modeler | null, setProcessJson?: (json: string) => void) {
+  if (!modeler) return
+  try {
+    const elementRegistry = modeler.get('elementRegistry') as { getAll: () => any[] }
+    const allElements = elementRegistry.getAll()
+    // Optionally, you can also log the root element:
+    const canvas = modeler.get('canvas') as { getRootElement: () => any }
+    const rootElement = canvas.getRootElement()
+    // Log a simplified snapshot
+    console.log('[BPMN MODEL] Root Element:', rootElement)
+    console.log('[BPMN MODEL] All Elements:', allElements)
+    // For a more detailed view, you could log the businessObject of the root
+    if (rootElement && rootElement.businessObject) {
+      console.log('[BPMN MODEL] Root BusinessObject:', rootElement.businessObject)
+    }
+    // Store JSON for download if setProcessJson is provided
+    if (setProcessJson) {
+      storeProcessJson(modeler, setProcessJson)
+    }
+  } catch (err) {
+    console.error('Failed to log BPMN model:', err)
+  }
+}
+
+function getProcessElement(modeler: Modeler) {
+  // Find the first process element in the registry
+  const elementRegistry = modeler.get('elementRegistry') as {
+    getAll: () => any[]
+  }
+  const allElements = elementRegistry.getAll()
+  return allElements.find((el) => el && typeof el.type === 'string' && el.type === 'bpmn:Process')
+}
+
 function BpmnEditor() {
   const containerRef = useRef<HTMLDivElement>(null)
   const modelerRef = useRef<Modeler | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [processName, setProcessName] = useState('')
+  const [processJson, setProcessJson] = useState('')
+
+  // Extract process name from model
+  async function updateProcessNameFromModeler() {
+    if (!modelerRef.current) return
+    const processElement = getProcessElement(modelerRef.current)
+    if (processElement && processElement.businessObject && typeof processElement.businessObject.name === 'string') {
+      setProcessName(processElement.businessObject.name)
+    } else {
+      setProcessName('')
+    }
+  }
 
   // Initialize Modeler
   useEffect(() => {
@@ -24,7 +97,11 @@ function BpmnEditor() {
     modelerRef.current = new Modeler(options)
     // Load default diagram
     modelerRef.current.importXML(DEFAULT_BPMN_XML)
-      .then(() => setIsLoading(false))
+      .then(() => {
+        setIsLoading(false)
+        updateProcessNameFromModeler()
+        logCurrentModel(modelerRef.current, setProcessJson)
+      })
       .catch((err) => {
         setError(err.message || 'Failed to load default diagram')
         setIsLoading(false)
@@ -44,6 +121,8 @@ function BpmnEditor() {
     try {
       const xml = await file.text()
       await modelerRef.current?.importXML(xml)
+      await updateProcessNameFromModeler()
+      logCurrentModel(modelerRef.current, setProcessJson)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to import BPMN XML')
     } finally {
@@ -77,10 +156,25 @@ function BpmnEditor() {
     setError(null)
     try {
       await modelerRef.current?.importXML(DEFAULT_BPMN_XML)
+      await updateProcessNameFromModeler()
+      logCurrentModel(modelerRef.current, setProcessJson)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to reset diagram')
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  // Handle process name change from input
+  async function handleProcessNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const newName = event.target.value
+    setProcessName(newName)
+    if (!modelerRef.current) return
+    const processElement = getProcessElement(modelerRef.current)
+    if (processElement) {
+      const modeling = modelerRef.current.get('modeling') as { updateProperties: (el: any, props: any) => void }
+      modeling.updateProperties(processElement, { name: newName })
+      logCurrentModel(modelerRef.current, setProcessJson)
     }
   }
 
@@ -93,6 +187,11 @@ function BpmnEditor() {
     a.download = filename
     a.click()
     URL.revokeObjectURL(url)
+  }
+
+  // Download process JSON
+  function handleDownloadJson() {
+    downloadFile(processJson, 'process.json')
   }
 
   return (
@@ -116,10 +215,27 @@ function BpmnEditor() {
           data-testid="export-svg"
         >Export SVG</button>
         <button
+          onClick={handleDownloadJson}
+          className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700"
+          data-testid="export-json"
+        >Download JSON</button>
+        <button
           onClick={handleReset}
           className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
           data-testid="reset-diagram"
         >Reset</button>
+      </div>
+      <div className="mb-4 flex items-center gap-2">
+        <label htmlFor="process-name" className="font-medium">Process Name:</label>
+        <input
+          id="process-name"
+          type="text"
+          value={processName}
+          onChange={handleProcessNameChange}
+          className="input input-bordered"
+          placeholder="Enter process name"
+          data-testid="process-name-input"
+        />
       </div>
       {isLoading && (
         <div className="loading-overlay">
