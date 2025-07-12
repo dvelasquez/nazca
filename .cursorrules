@@ -7,6 +7,7 @@ This is a BPMN (Business Process Model and Notation) engine built with React, Vi
 - **React 19** with TypeScript
 - **Vite** for build tooling
 - **bpmn-js** for BPMN modeling
+- **Tailwind CSS v4** for styling
 - **ESM modules** (preferred over CJS)
 - **TypeScript** with strict mode enabled
 
