@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Modeler from 'bpmn-js/lib/Modeler'
-import type { BaseViewerOptions, ImportXMLResult } from 'bpmn-js/lib/BaseViewer'
+import type { BaseViewerOptions } from 'bpmn-js/lib/BaseViewer'
 
 const DEFAULT_BPMN_XML = `<?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
