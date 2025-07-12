@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import BpmnEditor from '../../components/bpmn/BpmnEditor'
+import BpmnEditor from '../../components/bpmn/Editor'
 
 export const Route = createFileRoute('/bpmn/editor')({
   component: RouteComponent,

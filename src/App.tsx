@@ -1,5 +1,5 @@
-import BpmnViewer from './components/bpmn/BpmnViewer'
-import BpmnExampleSelector from './components/bpmn/BpmnExampleSelector'
+import BpmnViewer from './components/bpmn/Viewer'
+import BpmnExampleSelector from './components/bpmn/ExampleSelector'
 import { useState } from 'react'
 
 function App() {
