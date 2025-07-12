@@ -1,5 +1,10 @@
 # Code Style & Architecture Principles
 
+> **Note:** This project is structured as a monorepo with two main packages:
+> - `web/` for the frontend SPA
+> - `server/` for the Node.js API backend (LoopBack 4)
+> Keep frontend and backend code separate and modular.
+
 ## 1. Functional Programming Approach
 - **ALWAYS** use functional components over class components
 - Prefer pure functions and avoid side effects

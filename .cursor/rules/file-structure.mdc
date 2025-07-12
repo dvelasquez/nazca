@@ -1,27 +1,34 @@
 # File Organization Structure
+
+This project is a monorepo with two main top-level packages:
+- `web/`: Frontend SPA (React, Vite, Tailwind, TypeScript)
+- `server/`: Backend API (Node.js, TypeScript, LoopBack 4)
+
 ```
-src/
-├── components/
-│   ├── bpmn/
-│   │   ├── BpmnViewer.tsx
-│   │   ├── BpmnEditor.tsx
-│   │   └── BpmnToolbar.tsx
-│   ├── common/
-│   │   ├── Button.tsx
-│   │   └── Modal.tsx
-│   └── layout/
-│       └── Sidebar.tsx
-├── hooks/
-│   ├── useBpmnModel.ts
-│   └── useProcessData.ts
-├── types/
-│   ├── bpmn.ts
-│   └── process.ts
-├── utils/
-│   ├── bpmn-helpers.ts
-│   └── process-utils.ts
-└── constants/
-    └── bpmn-constants.ts
+web/
+├── public/
+│   ├── bike-example/
+│   └── bpmn-xml-examples/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   └── bpmn/
+│   ├── routes/
+│   │   └── bpmn/
+│   ├── types/
+│   └── ...
+├── package.json
+└── ...
+
+server/
+├── src/
+│   ├── controllers/
+│   ├── datasources/
+│   ├── models/
+│   ├── repositories/
+│   └── __tests__/
+├── package.json
+└── ...
 ```
 
 # Import/Export Guidelines

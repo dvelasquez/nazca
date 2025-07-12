@@ -1,4 +1,6 @@
 # Core Technologies
+
+## Frontend (`web/`)
 - **React 19** with TypeScript
 - **Vite** for build tooling
 - **bpmn-js** for BPMN modeling
@@ -6,9 +8,15 @@
 - **ESM modules** (preferred over CJS)
 - **TypeScript** with strict mode enabled
 
+## Backend (`server/`)
+- **Node.js** with TypeScript
+- **LoopBack 4** for API framework
+- **ESM modules** (preferred over CJS)
+- **TypeScript** with strict mode enabled
+
 # Development & Testing Environment
-- The development server runs at: http://localhost:5173/
-- Playwright MCP is installed and integrated.
+- The frontend development server runs at: http://localhost:5173/
+- Playwright MCP is installed and integrated for frontend testing.
 - When suggesting to check the view or perform browser-based inspection, use the MCP server and inspect the browser at the dev server URL via Cursor's Playwright tools.
 description:
 globs:
