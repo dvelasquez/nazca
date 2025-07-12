@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Viewer from 'bpmn-js/lib/Viewer'
 import type { BaseViewerOptions, ImportXMLResult } from 'bpmn-js/lib/BaseViewer'
+import { layoutProcess } from 'bpmn-auto-layout'
 
 interface BpmnViewerProps {
   xmlUrl?: string
@@ -112,6 +113,18 @@ function BpmnViewer({ xmlUrl, className = '', onLoad, onError }: BpmnViewerProps
         // Check if XML has diagram information
         const hasDiagram = xml.includes('<bpmndi:BPMNDiagram') || xml.includes('BPMNDiagram')
         setHasDiagramInfo(hasDiagram)
+
+        // If no diagram info, use bpmn-auto-layout to generate it
+        if (!hasDiagram) {
+          try {
+            xml = await layoutProcess(xml)
+            setHasDiagramInfo(true)
+          } catch (layoutErr) {
+            setError('Failed to auto-generate diagram information: ' + (layoutErr instanceof Error ? layoutErr.message : String(layoutErr)))
+            setIsLoading(false)
+            return
+          }
+        }
 
         const result = await viewerRef.current!.importXML(xml)
         onLoad?.(result)

@@ -11,6 +11,11 @@ This is a BPMN (Business Process Model and Notation) engine built with React, Vi
 - **ESM modules** (preferred over CJS)
 - **TypeScript** with strict mode enabled
 
+## Development & Testing Environment
+- The development server runs at: http://localhost:5173/
+- Playwright MCP is installed and integrated.
+- When suggesting to check the view or perform browser-based inspection, use the MCP server and inspect the browser at the dev server URL via Cursor's Playwright tools.
+
 ## Code Style & Architecture Principles
 
 ### 1. Functional Programming Approach
