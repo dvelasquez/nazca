@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
+import { Tenant } from './tenant.model';
 
 @model()
 export class ProcessDefinition extends Entity {
@@ -21,12 +22,8 @@ export class ProcessDefinition extends Entity {
   })
   bpmnXml: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
+  @belongsTo(() => Tenant)
   tenantId: string;
-
 
   constructor(data?: Partial<ProcessDefinition>) {
     super(data);
