@@ -13,6 +13,11 @@ import {
 } from '../../services/bpmn-service'
 import { DEFAULT_BPMN_XML } from '../../components/bpmn/bpmn-default-xml'
 import Modeler from 'bpmn-js/lib/Modeler'
+import {
+  BpmnPropertiesPanelModule,
+  BpmnPropertiesProviderModule
+} from 'bpmn-js-properties-panel';
+import '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
 
 export const Route = createFileRoute('/bpmn/editor')({
   component: RouteComponent,
@@ -31,6 +36,7 @@ function RouteComponent() {
   // Modeler ref
   const modelerRef = useRef<any>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const propertiesPanelRef = useRef<HTMLDivElement>(null)
 
   // Helper: log model
   function logCurrentModel(modeler: any) {
@@ -81,7 +87,14 @@ function RouteComponent() {
     const options = {
       container: containerRef.current,
       width: '100%',
-      height: '100%'
+      height: '100%',
+      propertiesPanel: {
+        parent: propertiesPanelRef.current
+      },
+      additionalModules: [
+        BpmnPropertiesPanelModule,
+        BpmnPropertiesProviderModule
+      ],
     }
     modelerRef.current = new Modeler(options)
     modelerRef.current.importXML(DEFAULT_BPMN_XML)
@@ -258,6 +271,7 @@ function RouteComponent() {
         onSelectTenant={setSelectedTenantId}
         containerRef={containerRef}
         modelerRef={modelerRef}
+        propertiesPanelRef={propertiesPanelRef}
       />
     </div>
   )

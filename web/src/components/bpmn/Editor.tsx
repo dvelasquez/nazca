@@ -25,40 +25,48 @@ interface BpmnEditorProps {
   onSelectTenant: (id: string | null) => void
   containerRef: React.RefObject<HTMLDivElement | null>
   modelerRef: React.RefObject<Modeler>
+  propertiesPanelRef: React.RefObject<HTMLDivElement>
 }
 
 function BpmnEditor(props: BpmnEditorProps) {
   return (
-    <div className="bpmn-editor">
-      <BpmnEditorToolbar
-        models={props.models}
-        selectedProcessDefinitionId={props.selectedProcessDefinitionId}
-        onSelectProcessDefinition={props.onSelectProcessDefinition}
-        onNewProcessDefinition={props.onNewProcessDefinition}
-        onSave={props.onSave}
-        onImport={props.onImport}
-        onExportXml={props.onExportXml}
-        onReset={props.onReset}
-        processDefinitionName={props.processDefinitionName}
-        onProcessDefinitionNameChange={props.onProcessDefinitionNameChange}
-        isLoading={props.isLoading}
-        error={props.error}
-        tenants={props.tenants}
-        selectedTenantId={props.selectedTenantId}
-        onSelectTenant={props.onSelectTenant}
-      />
+    <div className="bpmn-editor" style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ flex: 1 }}>
+        <BpmnEditorToolbar
+          models={props.models}
+          selectedProcessDefinitionId={props.selectedProcessDefinitionId}
+          onSelectProcessDefinition={props.onSelectProcessDefinition}
+          onNewProcessDefinition={props.onNewProcessDefinition}
+          onSave={props.onSave}
+          onImport={props.onImport}
+          onExportXml={props.onExportXml}
+          onReset={props.onReset}
+          processDefinitionName={props.processDefinitionName}
+          onProcessDefinitionNameChange={props.onProcessDefinitionNameChange}
+          isLoading={props.isLoading}
+          error={props.error}
+          tenants={props.tenants}
+          selectedTenantId={props.selectedTenantId}
+          onSelectTenant={props.onSelectTenant}
+        />
+        <div
+          ref={props.containerRef}
+          className="bpmn-container"
+          style={{
+            width: '100%',
+            height: '600px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            minHeight: '400px',
+            background: '#fff',
+          }}
+          data-testid="bpmn-editor-canvas"
+        />
+      </div>
       <div
-        ref={props.containerRef}
-        className="bpmn-container"
-        style={{
-          width: '100%',
-          height: '600px',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          minHeight: '400px',
-          background: '#fff',
-        }}
-        data-testid="bpmn-editor-canvas"
+        ref={props.propertiesPanelRef}
+        className="bpmn-properties-panel"
+        style={{ width: 350, minWidth: 250, height: 600, borderLeft: '1px solid #ccc', background: '#fafafa', overflow: 'auto' }}
       />
     </div>
   )
