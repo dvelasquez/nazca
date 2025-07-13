@@ -12,6 +12,7 @@ import {
   ProcessInstanceRepository,
   UserTaskInstanceRepository,
 } from '../repositories';
+import { HttpErrors } from '@loopback/rest';
 
 // BpmnService interface definition
 export interface BpmnService {
@@ -143,12 +144,91 @@ export class BpmnServiceProvider implements Provider<BpmnService> {
 
   /**
    * Completes a user task and resumes the process instance.
-   * (This is a placeholder for the next implementation step).
-   * @param taskId The ID of the UserTaskInstance to complete.
+   * @param userTaskId The ID of the UserTaskInstance from our database.
    * @param variables Output variables from the user's work.
    */
-  async completeTask(taskId: string, variables: object): Promise<void> {
-    console.log(`Completing task ${taskId} with variables:`, variables);
-    return Promise.resolve();
+  async completeTask(userTaskId: string, variables: object): Promise<void> {
+    // 1. Find the specific UserTaskInstance the user is trying to complete.
+    const userTask = await this.userTaskInstanceRepo.findById(userTaskId);
+    if (!userTask || userTask.status !== 'waiting') {
+      throw new HttpErrors.NotFound('Active user task not found or already completed.');
+    }
+
+    // 2. Find the parent ProcessInstance to get the saved engine state.
+    const instance = await this.processInstanceRepo.findById(userTask.instanceId);
+    if (!instance || !instance.state) {
+      throw new HttpErrors.InternalServerError('Process instance or its state not found.');
+    }
+
+    // 3. Find the original ProcessDefinition to get the BPMN source XML.
+    const definition = await this.processDefinitionRepo.findById(
+      instance.definitionId,
+    );
+    if (!definition) {
+      throw new HttpErrors.InternalServerError('Process definition not found.');
+    }
+
+    // 4. Create a new engine.
+    const engine = new Engine({
+      name: `engine-for-instance-${instance.id}-resume`,
+      source: definition.bpmnXml,
+    });
+
+    // 5. Recover the engine from the saved state. This is the crucial first step.
+    engine.recover(instance.state);
+
+    // The same listener logic applies to the resumed execution.
+    const listener = new EventEmitter();
+    listener.on('wait', (elementApi, execution) => {
+      // Create the next task and stop the engine
+      this.userTaskInstanceRepo.create({
+        instanceId: instance.id,
+        taskId: elementApi.id,
+        status: 'waiting',
+        tenantId: instance.tenantId,
+      });
+      execution.stop();
+    });
+    listener.on('end', async () => {
+      // Mark the main process instance as completed
+      await this.processInstanceRepo.updateById(instance.id, {status: 'completed'});
+    });
+
+    // 6. Resume the now-recovered engine.
+    engine.resume(
+      {
+        listener,
+      },
+      async (err, execution) => {
+        if (err) throw err;
+
+        if (!execution) {
+          console.log(`[Instance: ${instance.id}] Resumed and finished immediately.`);
+          return;
+        }
+
+        // 7. Find the specific API for the waiting user task and signal it to continue.
+        const taskApi = execution.getPostponed().find(p => p.id === userTask.taskId);
+        if (!taskApi) {
+          throw new HttpErrors.InternalServerError(`Task ${userTask.taskId} not found in resumed execution.`);
+        }
+
+        // Signal the task with the variables from the user. This "completes" the task.
+        taskApi.signal(variables);
+
+        // 8. Update the completed UserTaskInstance in our database.
+        await this.userTaskInstanceRepo.updateById(userTaskId, {status: 'completed'});
+
+        // 9. Save the new state of the main ProcessInstance.
+        const newState = execution.getState();
+        await this.processInstanceRepo.updateById(instance.id, {
+          status: execution.state,
+          variables: execution.environment.variables,
+          state: newState,
+        });
+
+        console.log(`[Instance: ${instance.id}] Resumed and saved with status: ${execution.state}`);
+      },
+    );
   }
 }
