@@ -1,14 +1,9 @@
 import {belongsTo, Entity, model, property} from '@loopback/repository';
 import { Tenant } from './tenant.model';
+import { BaseEntity } from './base-entity.model';
 
 @model()
-export class Actor extends Entity {
-  @property({
-    type: 'string',
-    id: true,
-    generated: true,
-  })
-  id?: string;
+export class Actor extends BaseEntity {
 
   @property({
     type: 'string',

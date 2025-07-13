@@ -31,7 +31,7 @@ export class TenantRepository extends DefaultCrudRepository<
   >;
 
   constructor(
-    @inject('datasources.db') dataSource: DevelopmentdbDataSource,
+    @inject('datasources.developmentdb') dataSource: DevelopmentdbDataSource,
     @repository.getter('ProcessDefinitionRepository')
     protected processDefinitionRepositoryGetter: Getter<ProcessDefinitionRepository>,
     @repository.getter('ActorRepository')

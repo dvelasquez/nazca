@@ -1,0 +1,10 @@
+{
+  "ids": {
+    "Tenant": 2
+  },
+  "models": {
+    "Tenant": {
+      "4c66ad9f-cfe9-47ed-8156-24035a12e93c": "{\"id\":\"4c66ad9f-cfe9-47ed-8156-24035a12e93c\",\"name\":\"Nazca\"}"
+    }
+  }
+}

@@ -1,15 +1,10 @@
-import {belongsTo, Entity, model, property, hasMany} from '@loopback/repository';
+import {belongsTo, model, property, hasMany} from '@loopback/repository';
 import { Tenant } from './tenant.model';
 import {ProcessInstance} from './process-instance.model';
+import { BaseEntity } from './base-entity.model';
 
 @model()
-export class ProcessDefinition extends Entity {
-  @property({
-    type: 'string',
-    id: true,
-    generated: true,
-  })
-  id?: string;
+export class ProcessDefinition extends BaseEntity {
 
   @property({
     type: 'string',

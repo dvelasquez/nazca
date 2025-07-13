@@ -1,15 +1,10 @@
-import {belongsTo, Entity, model, property} from '@loopback/repository';
+import {belongsTo, model, property} from '@loopback/repository';
 import { Tenant } from './tenant.model';
 import {Actor} from './actor.model';
+import { BaseEntity } from './base-entity.model';
 
 @model()
-export class UserTaskInstance extends Entity {
-  @property({
-    type: 'string',
-    id: true,
-    generated: true,
-  })
-  id?: string;
+export class UserTaskInstance extends BaseEntity {
 
   @property({
     type: 'string',

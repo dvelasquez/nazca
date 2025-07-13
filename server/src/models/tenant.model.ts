@@ -1,9 +1,10 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {model, property, hasMany} from '@loopback/repository';
 import {ProcessDefinition} from './process-definition.model';
 import {Actor} from './actor.model';
 import { ActorGroup } from './actor-group.model';
 import { UserTaskInstance } from './user-task-instance.model';
 import { ProcessInstance } from './process-instance.model';
+import { BaseEntity } from './base-entity.model';
 
 export type TenantRelations = {
   processDefinitions?: ProcessDefinition[];
@@ -14,13 +15,7 @@ export type TenantRelations = {
 };
 
 @model()
-export class Tenant extends Entity {
-  @property({
-    type: 'string',
-    id: true,
-    generated: true,
-  })
-  id?: string;
+export class Tenant extends BaseEntity {
 
   @property({
     type: 'string',
