@@ -1,3 +1,4 @@
+// TODO: Document in Cursor rules: API endpoints for BPMN model management (GET/PUT/POST /process-definitions, types from web/src/types/api.d.ts) must be defined and kept up to date for frontend-backend contract.
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
@@ -6,6 +7,16 @@ import Modeler from 'bpmn-js/lib/Modeler'
 import { useEffect, useRef, useState } from 'react'
 
 import { DEFAULT_BPMN_XML } from './bpmn-default-xml';
+import {
+  fetchProcessDefinitions,
+  fetchProcessDefinitionById,
+  updateProcessDefinition,
+  createProcessDefinition,
+  type ProcessDefinitionWithRelations,
+  type ProcessDefinition,
+  type NewProcessDefinition
+} from '../../services/bpmn-service'
+import BpmnEditorToolbar from './BpmnEditorToolbar'
 
 // Helper to safely serialize BPMN moddle objects
 function safeStringify(obj: any) {
@@ -72,7 +83,10 @@ function BpmnEditor() {
   const modelerRef = useRef<Modeler | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [processName, setProcessName] = useState('')
+  const [processDefinitionName, setProcessDefinitionName] = useState('')
+  const [models, setModels] = useState<ProcessDefinitionWithRelations[]>([])
+  const [selectedProcessDefinitionId, setSelectedProcessDefinitionId] = useState<string | null>(null)
+  const [isNewProcessDefinition, setIsNewProcessDefinition] = useState(false)
   const [processJson, setProcessJson] = useState('')
 
   // Extract process name from model
@@ -80,9 +94,9 @@ function BpmnEditor() {
     if (!modelerRef.current) return
     const processElement = getProcessElement(modelerRef.current)
     if (processElement && processElement.businessObject && typeof processElement.businessObject.name === 'string') {
-      setProcessName(processElement.businessObject.name)
+      setProcessDefinitionName(processElement.businessObject.name)
     } else {
-      setProcessName('')
+      setProcessDefinitionName('')
     }
   }
 
@@ -111,6 +125,28 @@ function BpmnEditor() {
       modelerRef.current = null
     }
   }, [])
+
+  // Fetch models on mount
+  useEffect(() => {
+    fetchProcessDefinitions()
+      .then(setModels)
+      .catch((err) => setError(err.message || 'Failed to fetch models'))
+  }, [])
+
+  // Load selected model
+  useEffect(() => {
+    if (!selectedProcessDefinitionId) return
+    setIsLoading(true)
+    setError(null)
+    fetchProcessDefinitionById(selectedProcessDefinitionId)
+      .then((model) => {
+        modelerRef.current?.importXML(model.bpmnXml)
+        setProcessDefinitionName(model.name)
+        logCurrentModel(modelerRef.current, setProcessJson)
+      })
+      .catch((err) => setError(err.message || 'Failed to load model'))
+      .finally(() => setIsLoading(false))
+  }, [selectedProcessDefinitionId])
 
   // Import BPMN XML from file
   async function handleImport(event: React.ChangeEvent<HTMLInputElement>) {
@@ -168,13 +204,82 @@ function BpmnEditor() {
   // Handle process name change from input
   async function handleProcessNameChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newName = event.target.value
-    setProcessName(newName)
+    setProcessDefinitionName(newName)
     if (!modelerRef.current) return
-    const processElement = getProcessElement(modelerRef.current)
+    const modeler = modelerRef.current
+    const processElement = getProcessElement(modeler)
     if (processElement) {
-      const modeling = modelerRef.current.get('modeling') as { updateProperties: (el: any, props: any) => void }
+      const modeling = modeler.get('modeling') as { updateProperties: (el: any, props: any) => void }
       modeling.updateProperties(processElement, { name: newName })
-      logCurrentModel(modelerRef.current, setProcessJson)
+      logCurrentModel(modeler, setProcessJson)
+    }
+  }
+
+  // New ProcessDefinition handler
+  function handleNewProcessDefinition() {
+    setIsNewProcessDefinition(true)
+    setSelectedProcessDefinitionId(null)
+    setProcessDefinitionName('')
+    setError(null)
+    setIsLoading(true)
+    modelerRef.current?.importXML(DEFAULT_BPMN_XML)
+      .then(() => {
+        setIsLoading(false)
+        logCurrentModel(modelerRef.current, setProcessJson)
+      })
+      .catch((err) => {
+        setError(err.message || 'Failed to load default diagram')
+        setIsLoading(false)
+      })
+  }
+
+  // Save ProcessDefinition (create or update)
+  async function handleSave() {
+    if (!modelerRef.current) {
+      setError('Editor is not ready.')
+      return
+    }
+    setIsLoading(true)
+    setError(null)
+    try {
+      const { xml } = await modelerRef.current.saveXML({ format: true })
+      if (!xml) {
+        setError('Cannot save: BPMN XML is undefined.')
+        setIsLoading(false)
+        return
+      }
+      if (isNewProcessDefinition || !selectedProcessDefinitionId) {
+        // Create new
+        const newDef: NewProcessDefinition = {
+          name: processDefinitionName,
+          bpmnXml: xml
+        }
+        const created = await createProcessDefinition(newDef)
+        setIsNewProcessDefinition(false)
+        setSelectedProcessDefinitionId(created.id || null)
+        setProcessDefinitionName(created.name)
+        // Refresh list
+        const updatedModels = await fetchProcessDefinitions()
+        setModels(updatedModels)
+      } else {
+        // Update existing
+        const model = models.find((m) => m.id === selectedProcessDefinitionId)
+        if (!model) throw new Error('ProcessDefinition not found')
+        const updated: ProcessDefinition = {
+          id: model.id!,
+          name: processDefinitionName,
+          bpmnXml: xml,
+          tenantId: model.tenantId
+        }
+        await updateProcessDefinition(model.id!, updated)
+        // Refresh list
+        const updatedModels = await fetchProcessDefinitions()
+        setModels(updatedModels)
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to save ProcessDefinition')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -196,57 +301,22 @@ function BpmnEditor() {
 
   return (
     <div className="bpmn-editor">
-      <div className="flex items-center gap-2 mb-4">
-        <input
-          type="file"
-          accept=".bpmn,.xml"
-          onChange={handleImport}
-          className="file-input file-input-bordered"
-          data-testid="import-bpmn"
-        />
-        <button
-          onClick={handleExportXml}
-          className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-          data-testid="export-xml"
-        >Export XML</button>
-        <button
-          onClick={handleExportSvg}
-          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
-          data-testid="export-svg"
-        >Export SVG</button>
-        <button
-          onClick={handleDownloadJson}
-          className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700"
-          data-testid="export-json"
-        >Download JSON</button>
-        <button
-          onClick={handleReset}
-          className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
-          data-testid="reset-diagram"
-        >Reset</button>
-      </div>
-      <div className="mb-4 flex items-center gap-2">
-        <label htmlFor="process-name" className="font-medium">Process Name:</label>
-        <input
-          id="process-name"
-          type="text"
-          value={processName}
-          onChange={handleProcessNameChange}
-          className="input input-bordered"
-          placeholder="Enter process name"
-          data-testid="process-name-input"
-        />
-      </div>
-      {isLoading && (
-        <div className="loading-overlay">
-          <div className="loading-spinner">Loading BPMN editor...</div>
-        </div>
-      )}
-      {error && (
-        <div className="error-message text-red-700 bg-red-100 border border-red-400 rounded px-4 py-3 mb-4">
-          <strong>Error:</strong> {error}
-        </div>
-      )}
+      <BpmnEditorToolbar
+        models={models}
+        selectedProcessDefinitionId={selectedProcessDefinitionId}
+        onSelectProcessDefinition={setSelectedProcessDefinitionId}
+        onNewProcessDefinition={handleNewProcessDefinition}
+        onSave={handleSave}
+        onImport={handleImport}
+        onExportXml={handleExportXml}
+        onExportSvg={handleExportSvg}
+        onDownloadJson={handleDownloadJson}
+        onReset={handleReset}
+        processDefinitionName={processDefinitionName}
+        onProcessDefinitionNameChange={e => setProcessDefinitionName(e.target.value)}
+        isLoading={isLoading}
+        error={error}
+      />
       <div
         ref={containerRef}
         className="bpmn-container"
