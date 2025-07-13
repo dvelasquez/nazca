@@ -8,13 +8,14 @@ export interface BpmnEditorToolbarProps {
   onSave: () => void
   onImport: (e: React.ChangeEvent<HTMLInputElement>) => void
   onExportXml: () => void
-  onExportSvg: () => void
-  onDownloadJson: () => void
   onReset: () => void
   processDefinitionName: string
   onProcessDefinitionNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   isLoading: boolean
   error: string | null
+  tenants: any[]
+  selectedTenantId: string | null
+  onSelectTenant: (id: string | null) => void
 }
 
 /**
@@ -28,17 +29,30 @@ export function BpmnEditorToolbar({
   onSave,
   onImport,
   onExportXml,
-  onExportSvg,
-  onDownloadJson,
   onReset,
   processDefinitionName,
   onProcessDefinitionNameChange,
   isLoading,
-  error
+  error,
+  tenants,
+  selectedTenantId,
+  onSelectTenant
 }: BpmnEditorToolbarProps) {
   return (
     <>
       <div className="flex items-center gap-2 mb-4">
+        {/* Tenant selector */}
+        <select
+          value={selectedTenantId || ''}
+          onChange={e => onSelectTenant(e.target.value || null)}
+          className="select select-bordered"
+          data-testid="tenant-selector"
+        >
+          <option value="">Select Tenant...</option>
+          {tenants.map((t) => (
+            <option key={t.id} value={t.id}>{t.name}</option>
+          ))}
+        </select>
         {/* ProcessDefinition selector */}
         <select
           value={selectedProcessDefinitionId || ''}
@@ -77,16 +91,6 @@ export function BpmnEditorToolbar({
           className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
           data-testid="export-xml"
         >Export XML</button>
-        <button
-          onClick={onExportSvg}
-          className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
-          data-testid="export-svg"
-        >Export SVG</button>
-        <button
-          onClick={onDownloadJson}
-          className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700"
-          data-testid="export-json"
-        >Download JSON</button>
         <button
           onClick={onReset}
           className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"

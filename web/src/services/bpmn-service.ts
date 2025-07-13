@@ -5,6 +5,8 @@ export type ProcessDefinition = components['schemas']['ProcessDefinition']
 export type ProcessDefinitionWithRelations = components['schemas']['ProcessDefinitionWithRelations']
 export type NewProcessDefinition = components['schemas']['NewProcessDefinition']
 
+type TenantWithRelations = components['schemas']['TenantWithRelations']
+
 const API_ROOT = import.meta.env.VITE_API_ENDPOINT || ''
 const API_BASE = `${API_ROOT}/api/process-definitions`
 
@@ -57,4 +59,17 @@ export async function updateProcessDefinition(id: string, data: ProcessDefinitio
   if (!res.ok) {
     throw new Error('Failed to update process definition')
   }
+}
+
+/**
+ * Fetch all tenants from the API.
+ */
+export async function fetchTenants(): Promise<TenantWithRelations[]> {
+  const API_ROOT = import.meta.env.VITE_API_ENDPOINT || ''
+  const API_BASE = `${API_ROOT}/api/tenants`
+  const res = await fetch(API_BASE)
+  if (!res.ok) {
+    throw new Error('Failed to fetch tenants')
+  }
+  return res.json()
 } 
