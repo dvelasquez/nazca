@@ -1,0 +1,1575 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "@nazca/server",
+    "version": "0.0.1",
+    "description": "Nazca server",
+    "contact": {
+      "name": "Danilo Velasquez",
+      "email": "danilo.velasquez@gmail.com"
+    }
+  },
+  "paths": {
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    },
+    "/process-definitions/{id}/start": {
+      "post": {
+        "x-controller-name": "ProcessInstanceController",
+        "x-operation-name": "start",
+        "tags": [
+          "ProcessInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "The newly created ProcessInstance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessInstance"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "variables": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Initial variables for the process instance",
+          "x-parameter-index": 1
+        },
+        "operationId": "ProcessInstanceController.start"
+      }
+    },
+    "/process-definitions/{id}": {
+      "put": {
+        "x-controller-name": "ProcessDefinitionController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "ProcessDefinitionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "ProcessDefinition PUT success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessDefinition"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProcessDefinitionController.replaceById"
+      },
+      "get": {
+        "x-controller-name": "ProcessDefinitionController",
+        "x-operation-name": "findById",
+        "tags": [
+          "ProcessDefinitionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProcessDefinition model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDefinitionWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDefinition.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProcessDefinitionController.findById"
+      },
+      "delete": {
+        "x-controller-name": "ProcessDefinitionController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "ProcessDefinitionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "ProcessDefinition DELETE success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "ProcessDefinitionController.deleteById"
+      }
+    },
+    "/process-definitions": {
+      "post": {
+        "x-controller-name": "ProcessDefinitionController",
+        "x-operation-name": "create",
+        "tags": [
+          "ProcessDefinitionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProcessDefinition model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDefinition"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProcessDefinition"
+              }
+            }
+          }
+        },
+        "operationId": "ProcessDefinitionController.create"
+      },
+      "get": {
+        "x-controller-name": "ProcessDefinitionController",
+        "x-operation-name": "find",
+        "tags": [
+          "ProcessDefinitionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of ProcessDefinition model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProcessDefinitionWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessDefinition.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProcessDefinitionController.find"
+      }
+    },
+    "/tenants/count": {
+      "get": {
+        "x-controller-name": "TenantController",
+        "x-operation-name": "count",
+        "tags": [
+          "TenantController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Tenant.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Tenant>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TenantController.count"
+      }
+    },
+    "/tenants/{id}/actor-groups": {
+      "get": {
+        "x-controller-name": "TenantActorGroupController",
+        "x-operation-name": "find",
+        "tags": [
+          "TenantActorGroupController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of ActorGroup instances belonging to Tenant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActorGroup"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "TenantActorGroupController.find"
+      }
+    },
+    "/tenants/{id}/actors": {
+      "get": {
+        "x-controller-name": "TenantActorController",
+        "x-operation-name": "find",
+        "tags": [
+          "TenantActorController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Actor instances belonging to Tenant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Actor"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "TenantActorController.find"
+      }
+    },
+    "/tenants/{id}/process-definitions": {
+      "get": {
+        "x-controller-name": "TenantProcessDefinitionController",
+        "x-operation-name": "find",
+        "tags": [
+          "TenantProcessDefinitionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of ProcessDefinition instances belonging to Tenant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProcessDefinition"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "TenantProcessDefinitionController.find"
+      }
+    },
+    "/tenants/{id}": {
+      "put": {
+        "x-controller-name": "TenantController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "TenantController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Tenant PUT success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tenant"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "TenantController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "TenantController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "TenantController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Tenant PATCH success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TenantPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "TenantController.updateById"
+      },
+      "get": {
+        "x-controller-name": "TenantController",
+        "x-operation-name": "findById",
+        "tags": [
+          "TenantController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TenantWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tenant.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TenantController.findById"
+      },
+      "delete": {
+        "x-controller-name": "TenantController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "TenantController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Tenant DELETE success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "TenantController.deleteById"
+      }
+    },
+    "/tenants": {
+      "post": {
+        "x-controller-name": "TenantController",
+        "x-operation-name": "create",
+        "tags": [
+          "TenantController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tenant"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTenant"
+              }
+            }
+          }
+        },
+        "operationId": "TenantController.create"
+      },
+      "patch": {
+        "x-controller-name": "TenantController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "TenantController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Tenant.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Tenant>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TenantPartial"
+              }
+            }
+          }
+        },
+        "operationId": "TenantController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "TenantController",
+        "x-operation-name": "find",
+        "tags": [
+          "TenantController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Tenant model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TenantWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tenant.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TenantController.find"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Tenant": {
+        "title": "Tenant",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "NewTenant": {
+        "title": "NewTenant",
+        "type": "object",
+        "description": "(tsType: Omit<Tenant, 'id'>, schemaOptions: { title: 'NewTenant', exclude: [ 'id' ] })",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<Tenant, 'id'>"
+      },
+      "ProcessDefinitionWithRelations": {
+        "title": "ProcessDefinitionWithRelations",
+        "type": "object",
+        "description": "(tsType: ProcessDefinitionWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "bpmnXml": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/TenantWithRelations"
+          },
+          "foreignKey": {}
+        },
+        "required": [
+          "name",
+          "bpmnXml"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "ProcessDefinitionWithRelations"
+      },
+      "ActorWithRelations": {
+        "title": "ActorWithRelations",
+        "type": "object",
+        "description": "(tsType: ActorWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "actorGroupId": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/TenantWithRelations"
+          },
+          "foreignKey": {}
+        },
+        "required": [
+          "name",
+          "email"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "ActorWithRelations"
+      },
+      "ActorGroupWithRelations": {
+        "title": "ActorGroupWithRelations",
+        "type": "object",
+        "description": "(tsType: ActorGroupWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/TenantWithRelations"
+          },
+          "foreignKey": {}
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "ActorGroupWithRelations"
+      },
+      "ProcessInstanceWithRelations": {
+        "title": "ProcessInstanceWithRelations",
+        "type": "object",
+        "description": "(tsType: ProcessInstanceWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "definitionId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "variables": {
+            "type": "object"
+          },
+          "state": {
+            "type": "object"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/TenantWithRelations"
+          },
+          "foreignKey": {}
+        },
+        "required": [
+          "definitionId",
+          "status"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "ProcessInstanceWithRelations"
+      },
+      "UserTaskInstanceWithRelations": {
+        "title": "UserTaskInstanceWithRelations",
+        "type": "object",
+        "description": "(tsType: UserTaskInstanceWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "instanceId": {
+            "type": "string"
+          },
+          "taskId": {
+            "type": "string"
+          },
+          "assigneeId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/TenantWithRelations"
+          },
+          "foreignKey": {}
+        },
+        "required": [
+          "instanceId",
+          "taskId",
+          "status"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "UserTaskInstanceWithRelations"
+      },
+      "TenantWithRelations": {
+        "title": "TenantWithRelations",
+        "type": "object",
+        "description": "(tsType: TenantWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "processDefinitions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessDefinitionWithRelations"
+            }
+          },
+          "actors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActorWithRelations"
+            }
+          },
+          "actorGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActorGroupWithRelations"
+            }
+          },
+          "processInstances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessInstanceWithRelations"
+            }
+          },
+          "userTaskInstances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserTaskInstanceWithRelations"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "TenantWithRelations"
+      },
+      "TenantPartial": {
+        "title": "TenantPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Tenant>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Tenant>"
+      },
+      "ProcessDefinition": {
+        "title": "ProcessDefinition",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "bpmnXml": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "bpmnXml"
+        ],
+        "additionalProperties": false
+      },
+      "ActorGroup": {
+        "title": "ActorGroup",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "Actor": {
+        "title": "Actor",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "actorGroupId": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "ProcessInstance": {
+        "title": "ProcessInstance",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "definitionId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "variables": {
+            "type": "object"
+          },
+          "state": {
+            "type": "object"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "definitionId",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "NewProcessDefinition": {
+        "title": "NewProcessDefinition",
+        "type": "object",
+        "description": "(tsType: Omit<ProcessDefinition, 'id'>, schemaOptions: { title: 'NewProcessDefinition', exclude: [ 'id' ] })",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "bpmnXml": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "bpmnXml"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<ProcessDefinition, 'id'>"
+      },
+      "PingResponse": {
+        "type": "object",
+        "title": "PingResponse",
+        "properties": {
+          "greeting": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "properties": {
+              "Content-Type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "ProcessDefinition.ScopeFilter": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": true
+              }
+            ]
+          },
+          "include": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": false,
+        "title": "ProcessDefinition.ScopeFilter"
+      },
+      "ProcessDefinition.IncludeFilter.Items": {
+        "title": "ProcessDefinition.IncludeFilter.Items",
+        "type": "object",
+        "properties": {
+          "relation": {
+            "type": "string",
+            "enum": [
+              "tenant"
+            ]
+          },
+          "scope": {
+            "$ref": "#/components/schemas/ProcessDefinition.ScopeFilter"
+          }
+        }
+      },
+      "ProcessDefinition.Filter": {
+        "type": "object",
+        "title": "ProcessDefinition.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  },
+                  "bpmnXml": {
+                    "type": "boolean"
+                  },
+                  "tenantId": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "name",
+                    "bpmnXml",
+                    "tenantId"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "ProcessDefinition.Fields"
+          },
+          "include": {
+            "title": "ProcessDefinition.IncludeFilter",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ProcessDefinition.IncludeFilter.Items"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<ProcessDefinition>"
+      },
+      "ProcessDefinition.Filter1": {
+        "type": "object",
+        "title": "ProcessDefinition.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "ProcessDefinition.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  },
+                  "bpmnXml": {
+                    "type": "boolean"
+                  },
+                  "tenantId": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "name",
+                    "bpmnXml",
+                    "tenantId"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "ProcessDefinition.Fields"
+          },
+          "include": {
+            "title": "ProcessDefinition.IncludeFilter",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ProcessDefinition.IncludeFilter.Items"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<ProcessDefinition>"
+      },
+      "loopback.Count": {
+        "type": "object",
+        "title": "loopback.Count",
+        "x-typescript-type": "@loopback/repository#Count",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "Tenant.ScopeFilter": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": true
+              }
+            ]
+          },
+          "include": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": false,
+        "title": "Tenant.ScopeFilter"
+      },
+      "Tenant.IncludeFilter.Items": {
+        "title": "Tenant.IncludeFilter.Items",
+        "type": "object",
+        "properties": {
+          "relation": {
+            "type": "string",
+            "enum": [
+              "processDefinitions",
+              "actors",
+              "actorGroups",
+              "processInstances",
+              "userTaskInstances"
+            ]
+          },
+          "scope": {
+            "$ref": "#/components/schemas/Tenant.ScopeFilter"
+          }
+        }
+      },
+      "Tenant.Filter": {
+        "type": "object",
+        "title": "Tenant.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "name"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Tenant.Fields"
+          },
+          "include": {
+            "title": "Tenant.IncludeFilter",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Tenant.IncludeFilter.Items"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Tenant>"
+      },
+      "Tenant.Filter1": {
+        "type": "object",
+        "title": "Tenant.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "Tenant.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "name"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Tenant.Fields"
+          },
+          "include": {
+            "title": "Tenant.IncludeFilter",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Tenant.IncludeFilter.Items"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Tenant>"
+      }
+    }
+  }
+}
