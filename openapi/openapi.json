@@ -10,6 +10,191 @@
     }
   },
   "paths": {
+    "/actor-groups/{id}/actors": {
+      "post": {
+        "x-controller-name": "ActorGroupActorController",
+        "x-operation-name": "create",
+        "tags": [
+          "ActorGroupActorController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ActorGroup model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewActorInActorGroup"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ActorGroupActorController.create"
+      },
+      "patch": {
+        "x-controller-name": "ActorGroupActorController",
+        "x-operation-name": "patch",
+        "tags": [
+          "ActorGroupActorController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ActorGroup.Actor PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Actor.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Actor>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActorPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ActorGroupActorController.patch"
+      },
+      "get": {
+        "x-controller-name": "ActorGroupActorController",
+        "x-operation-name": "find",
+        "tags": [
+          "ActorGroupActorController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of ActorGroup has many Actor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Actor"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ActorGroupActorController.find"
+      },
+      "delete": {
+        "x-controller-name": "ActorGroupActorController",
+        "x-operation-name": "delete",
+        "tags": [
+          "ActorGroupActorController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ActorGroup.Actor DELETE success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Actor.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Actor>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ActorGroupActorController.delete"
+      }
+    },
     "/ping": {
       "get": {
         "x-controller-name": "PingController",
@@ -30,6 +215,191 @@
           }
         },
         "operationId": "PingController.ping"
+      }
+    },
+    "/process-definitions/{id}/process-instances": {
+      "post": {
+        "x-controller-name": "ProcessDefinitionProcessInstanceController",
+        "x-operation-name": "create",
+        "tags": [
+          "ProcessDefinitionProcessInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProcessDefinition model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessInstance"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProcessInstanceInProcessDefinition"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProcessDefinitionProcessInstanceController.create"
+      },
+      "patch": {
+        "x-controller-name": "ProcessDefinitionProcessInstanceController",
+        "x-operation-name": "patch",
+        "tags": [
+          "ProcessDefinitionProcessInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProcessDefinition.ProcessInstance PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "ProcessInstance.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<ProcessInstance>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessInstancePartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProcessDefinitionProcessInstanceController.patch"
+      },
+      "get": {
+        "x-controller-name": "ProcessDefinitionProcessInstanceController",
+        "x-operation-name": "find",
+        "tags": [
+          "ProcessDefinitionProcessInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of ProcessDefinition has many ProcessInstance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProcessInstance"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProcessDefinitionProcessInstanceController.find"
+      },
+      "delete": {
+        "x-controller-name": "ProcessDefinitionProcessInstanceController",
+        "x-operation-name": "delete",
+        "tags": [
+          "ProcessDefinitionProcessInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProcessDefinition.ProcessInstance DELETE success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "ProcessInstance.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<ProcessInstance>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProcessDefinitionProcessInstanceController.delete"
       }
     },
     "/process-definitions/{id}/start": {
@@ -258,6 +628,191 @@
           }
         ],
         "operationId": "ProcessDefinitionController.find"
+      }
+    },
+    "/process-instances/{id}/user-task-instances": {
+      "post": {
+        "x-controller-name": "ProcessInstanceUserTaskInstanceController",
+        "x-operation-name": "create",
+        "tags": [
+          "ProcessInstanceUserTaskInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProcessInstance model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserTaskInstance"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUserTaskInstanceInProcessInstance"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProcessInstanceUserTaskInstanceController.create"
+      },
+      "patch": {
+        "x-controller-name": "ProcessInstanceUserTaskInstanceController",
+        "x-operation-name": "patch",
+        "tags": [
+          "ProcessInstanceUserTaskInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProcessInstance.UserTaskInstance PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "UserTaskInstance.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<UserTaskInstance>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserTaskInstancePartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProcessInstanceUserTaskInstanceController.patch"
+      },
+      "get": {
+        "x-controller-name": "ProcessInstanceUserTaskInstanceController",
+        "x-operation-name": "find",
+        "tags": [
+          "ProcessInstanceUserTaskInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of ProcessInstance has many UserTaskInstance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserTaskInstance"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProcessInstanceUserTaskInstanceController.find"
+      },
+      "delete": {
+        "x-controller-name": "ProcessInstanceUserTaskInstanceController",
+        "x-operation-name": "delete",
+        "tags": [
+          "ProcessInstanceUserTaskInstanceController"
+        ],
+        "responses": {
+          "200": {
+            "description": "ProcessInstance.UserTaskInstance DELETE success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "UserTaskInstance.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<UserTaskInstance>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProcessInstanceUserTaskInstanceController.delete"
       }
     },
     "/tenants/count": {
@@ -667,6 +1222,38 @@
         ],
         "operationId": "TenantController.find"
       }
+    },
+    "/user-task-instances/{id}/actor": {
+      "get": {
+        "x-controller-name": "UserTaskInstanceActorController",
+        "x-operation-name": "getActor",
+        "tags": [
+          "UserTaskInstanceActorController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Actor belonging to UserTaskInstance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "UserTaskInstanceActorController.getActor"
+      }
     }
   },
   "servers": [
@@ -676,6 +1263,32 @@
   ],
   "components": {
     "schemas": {
+      "Actor": {
+        "title": "Actor",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "actorGroupId": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email"
+        ],
+        "additionalProperties": false
+      },
       "Tenant": {
         "title": "Tenant",
         "type": "object",
@@ -706,35 +1319,6 @@
         ],
         "additionalProperties": false,
         "x-typescript-type": "Omit<Tenant, 'id'>"
-      },
-      "ProcessDefinitionWithRelations": {
-        "title": "ProcessDefinitionWithRelations",
-        "type": "object",
-        "description": "(tsType: ProcessDefinitionWithRelations, schemaOptions: { includeRelations: true })",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "bpmnXml": {
-            "type": "string"
-          },
-          "tenantId": {
-            "type": "string"
-          },
-          "tenant": {
-            "$ref": "#/components/schemas/TenantWithRelations"
-          },
-          "foreignKey": {}
-        },
-        "required": [
-          "name",
-          "bpmnXml"
-        ],
-        "additionalProperties": false,
-        "x-typescript-type": "ProcessDefinitionWithRelations"
       },
       "ActorWithRelations": {
         "title": "ActorWithRelations",
@@ -768,30 +1352,50 @@
         "additionalProperties": false,
         "x-typescript-type": "ActorWithRelations"
       },
-      "ActorGroupWithRelations": {
-        "title": "ActorGroupWithRelations",
+      "UserTaskInstanceWithRelations": {
+        "title": "UserTaskInstanceWithRelations",
         "type": "object",
-        "description": "(tsType: ActorGroupWithRelations, schemaOptions: { includeRelations: true })",
+        "description": "(tsType: UserTaskInstanceWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "instanceId": {
+            "type": "string"
+          },
+          "taskId": {
+            "type": "string"
+          },
+          "assigneeId": {
+            "type": "string"
+          },
+          "status": {
             "type": "string"
           },
           "tenantId": {
             "type": "string"
           },
+          "processInstanceId": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": "string"
+          },
           "tenant": {
             "$ref": "#/components/schemas/TenantWithRelations"
           },
-          "foreignKey": {}
+          "foreignKey": {},
+          "assignee": {
+            "$ref": "#/components/schemas/ActorWithRelations"
+          }
         },
         "required": [
-          "name"
+          "instanceId",
+          "taskId",
+          "status"
         ],
         "additionalProperties": false,
-        "x-typescript-type": "ActorGroupWithRelations"
+        "x-typescript-type": "UserTaskInstanceWithRelations"
       },
       "ProcessInstanceWithRelations": {
         "title": "ProcessInstanceWithRelations",
@@ -816,10 +1420,19 @@
           "tenantId": {
             "type": "string"
           },
+          "processDefinitionId": {
+            "type": "string"
+          },
           "tenant": {
             "$ref": "#/components/schemas/TenantWithRelations"
           },
-          "foreignKey": {}
+          "foreignKey": {},
+          "userTaskInstances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserTaskInstanceWithRelations"
+            }
+          }
         },
         "required": [
           "definitionId",
@@ -828,24 +1441,18 @@
         "additionalProperties": false,
         "x-typescript-type": "ProcessInstanceWithRelations"
       },
-      "UserTaskInstanceWithRelations": {
-        "title": "UserTaskInstanceWithRelations",
+      "ProcessDefinitionWithRelations": {
+        "title": "ProcessDefinitionWithRelations",
         "type": "object",
-        "description": "(tsType: UserTaskInstanceWithRelations, schemaOptions: { includeRelations: true })",
+        "description": "(tsType: ProcessDefinitionWithRelations, schemaOptions: { includeRelations: true })",
         "properties": {
           "id": {
             "type": "string"
           },
-          "instanceId": {
+          "name": {
             "type": "string"
           },
-          "taskId": {
-            "type": "string"
-          },
-          "assigneeId": {
-            "type": "string"
-          },
-          "status": {
+          "bpmnXml": {
             "type": "string"
           },
           "tenantId": {
@@ -854,15 +1461,51 @@
           "tenant": {
             "$ref": "#/components/schemas/TenantWithRelations"
           },
-          "foreignKey": {}
+          "foreignKey": {},
+          "processInstances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessInstanceWithRelations"
+            }
+          }
         },
         "required": [
-          "instanceId",
-          "taskId",
-          "status"
+          "name",
+          "bpmnXml"
         ],
         "additionalProperties": false,
-        "x-typescript-type": "UserTaskInstanceWithRelations"
+        "x-typescript-type": "ProcessDefinitionWithRelations"
+      },
+      "ActorGroupWithRelations": {
+        "title": "ActorGroupWithRelations",
+        "type": "object",
+        "description": "(tsType: ActorGroupWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/TenantWithRelations"
+          },
+          "foreignKey": {},
+          "actors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActorWithRelations"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "ActorGroupWithRelations"
       },
       "TenantWithRelations": {
         "title": "TenantWithRelations",
@@ -969,32 +1612,6 @@
         ],
         "additionalProperties": false
       },
-      "Actor": {
-        "title": "Actor",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "actorGroupId": {
-            "type": "string"
-          },
-          "tenantId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "email"
-        ],
-        "additionalProperties": false
-      },
       "ProcessInstance": {
         "title": "ProcessInstance",
         "type": "object",
@@ -1016,6 +1633,9 @@
           },
           "tenantId": {
             "type": "string"
+          },
+          "processDefinitionId": {
+            "type": "string"
           }
         },
         "required": [
@@ -1023,6 +1643,110 @@
           "status"
         ],
         "additionalProperties": false
+      },
+      "UserTaskInstance": {
+        "title": "UserTaskInstance",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "instanceId": {
+            "type": "string"
+          },
+          "taskId": {
+            "type": "string"
+          },
+          "assigneeId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processInstanceId": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "instanceId",
+          "taskId",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "NewUserTaskInstanceInProcessInstance": {
+        "title": "NewUserTaskInstanceInProcessInstance",
+        "type": "object",
+        "description": "(tsType: @loopback/repository-json-schema#Optional<Omit<UserTaskInstance, 'id'>, 'processInstanceId'>, schemaOptions: { title: 'NewUserTaskInstanceInProcessInstance', exclude: [ 'id' ], optional: [ 'processInstanceId' ] })",
+        "properties": {
+          "instanceId": {
+            "type": "string"
+          },
+          "taskId": {
+            "type": "string"
+          },
+          "assigneeId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processInstanceId": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "instanceId",
+          "taskId",
+          "status"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository-json-schema#Optional<Omit<UserTaskInstance, 'id'>, 'processInstanceId'>"
+      },
+      "UserTaskInstancePartial": {
+        "title": "UserTaskInstancePartial",
+        "type": "object",
+        "description": "(tsType: Partial<UserTaskInstance>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "instanceId": {
+            "type": "string"
+          },
+          "taskId": {
+            "type": "string"
+          },
+          "assigneeId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processInstanceId": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<UserTaskInstance>"
       },
       "NewProcessDefinition": {
         "title": "NewProcessDefinition",
@@ -1045,6 +1769,126 @@
         ],
         "additionalProperties": false,
         "x-typescript-type": "Omit<ProcessDefinition, 'id'>"
+      },
+      "NewProcessInstanceInProcessDefinition": {
+        "title": "NewProcessInstanceInProcessDefinition",
+        "type": "object",
+        "description": "(tsType: @loopback/repository-json-schema#Optional<Omit<ProcessInstance, 'id'>, 'processDefinitionId'>, schemaOptions: { title: 'NewProcessInstanceInProcessDefinition', exclude: [ 'id' ], optional: [ 'processDefinitionId' ] })",
+        "properties": {
+          "definitionId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "variables": {
+            "type": "object"
+          },
+          "state": {
+            "type": "object"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "definitionId",
+          "status"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository-json-schema#Optional<Omit<ProcessInstance, 'id'>, 'processDefinitionId'>"
+      },
+      "ProcessInstancePartial": {
+        "title": "ProcessInstancePartial",
+        "type": "object",
+        "description": "(tsType: Partial<ProcessInstance>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "definitionId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "variables": {
+            "type": "object"
+          },
+          "state": {
+            "type": "object"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<ProcessInstance>"
+      },
+      "NewActorInActorGroup": {
+        "title": "NewActorInActorGroup",
+        "type": "object",
+        "description": "(tsType: @loopback/repository-json-schema#Optional<Omit<Actor, 'id'>, 'actorGroupId'>, schemaOptions: { title: 'NewActorInActorGroup', exclude: [ 'id' ], optional: [ 'actorGroupId' ] })",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "actorGroupId": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository-json-schema#Optional<Omit<Actor, 'id'>, 'actorGroupId'>"
+      },
+      "ActorPartial": {
+        "title": "ActorPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Actor>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "actorGroupId": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Actor>"
+      },
+      "loopback.Count": {
+        "type": "object",
+        "title": "loopback.Count",
+        "x-typescript-type": "@loopback/repository#Count",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
       },
       "PingResponse": {
         "type": "object",
@@ -1138,7 +1982,8 @@
           "relation": {
             "type": "string",
             "enum": [
-              "tenant"
+              "tenant",
+              "processInstances"
             ]
           },
           "scope": {
@@ -1320,16 +2165,6 @@
         },
         "additionalProperties": false,
         "x-typescript-type": "@loopback/repository#Filter<ProcessDefinition>"
-      },
-      "loopback.Count": {
-        "type": "object",
-        "title": "loopback.Count",
-        "x-typescript-type": "@loopback/repository#Count",
-        "properties": {
-          "count": {
-            "type": "number"
-          }
-        }
       },
       "Tenant.ScopeFilter": {
         "type": "object",

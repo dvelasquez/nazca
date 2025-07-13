@@ -5,3 +5,7 @@ export * from './tenant-process-definition.controller';
 export * from './tenant-actor-controller.controller';
 export * from './tenant-actor-group-controller.controller';
 export * from './process-instance.controller';
+export * from './process-definition-process-instance.controller';
+export * from './process-instance-user-task-instance.controller';
+export * from './actor-group-actor.controller';
+export * from './user-task-instance-actor.controller';

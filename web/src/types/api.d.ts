@@ -4,8 +4,20 @@
  */
 
 export interface paths {
+  "/actor-groups/{id}/actors": {
+    get: operations["ActorGroupActorController.find"];
+    post: operations["ActorGroupActorController.create"];
+    delete: operations["ActorGroupActorController.delete"];
+    patch: operations["ActorGroupActorController.patch"];
+  };
   "/ping": {
     get: operations["PingController.ping"];
+  };
+  "/process-definitions/{id}/process-instances": {
+    get: operations["ProcessDefinitionProcessInstanceController.find"];
+    post: operations["ProcessDefinitionProcessInstanceController.create"];
+    delete: operations["ProcessDefinitionProcessInstanceController.delete"];
+    patch: operations["ProcessDefinitionProcessInstanceController.patch"];
   };
   "/process-definitions/{id}/start": {
     post: operations["ProcessInstanceController.start"];
@@ -18,6 +30,12 @@ export interface paths {
   "/process-definitions": {
     get: operations["ProcessDefinitionController.find"];
     post: operations["ProcessDefinitionController.create"];
+  };
+  "/process-instances/{id}/user-task-instances": {
+    get: operations["ProcessInstanceUserTaskInstanceController.find"];
+    post: operations["ProcessInstanceUserTaskInstanceController.create"];
+    delete: operations["ProcessInstanceUserTaskInstanceController.delete"];
+    patch: operations["ProcessInstanceUserTaskInstanceController.patch"];
   };
   "/tenants/count": {
     get: operations["TenantController.count"];
@@ -42,10 +60,21 @@ export interface paths {
     post: operations["TenantController.create"];
     patch: operations["TenantController.updateAll"];
   };
+  "/user-task-instances/{id}/actor": {
+    get: operations["UserTaskInstanceActorController.getActor"];
+  };
 }
 
 export interface components {
   schemas: {
+    /** Actor */
+    Actor: {
+      id?: string;
+      name: string;
+      email: string;
+      actorGroupId?: string;
+      tenantId?: string;
+    };
     /** Tenant */
     Tenant: {
       id?: string;
@@ -57,18 +86,6 @@ export interface components {
      */
     NewTenant: {
       name: string;
-    };
-    /**
-     * ProcessDefinitionWithRelations
-     * @description (tsType: ProcessDefinitionWithRelations, schemaOptions: { includeRelations: true })
-     */
-    ProcessDefinitionWithRelations: {
-      id?: string;
-      name: string;
-      bpmnXml: string;
-      tenantId?: string;
-      tenant?: components["schemas"]["TenantWithRelations"];
-      foreignKey?: unknown;
     };
     /**
      * ActorWithRelations
@@ -84,15 +101,21 @@ export interface components {
       foreignKey?: unknown;
     };
     /**
-     * ActorGroupWithRelations
-     * @description (tsType: ActorGroupWithRelations, schemaOptions: { includeRelations: true })
+     * UserTaskInstanceWithRelations
+     * @description (tsType: UserTaskInstanceWithRelations, schemaOptions: { includeRelations: true })
      */
-    ActorGroupWithRelations: {
+    UserTaskInstanceWithRelations: {
       id?: string;
-      name: string;
+      instanceId: string;
+      taskId: string;
+      assigneeId?: string;
+      status: string;
       tenantId?: string;
+      processInstanceId?: string;
+      actorId?: string;
       tenant?: components["schemas"]["TenantWithRelations"];
       foreignKey?: unknown;
+      assignee?: components["schemas"]["ActorWithRelations"];
     };
     /**
      * ProcessInstanceWithRelations
@@ -105,22 +128,35 @@ export interface components {
       variables?: { [key: string]: unknown };
       state?: { [key: string]: unknown };
       tenantId?: string;
+      processDefinitionId?: string;
       tenant?: components["schemas"]["TenantWithRelations"];
       foreignKey?: unknown;
+      userTaskInstances?: components["schemas"]["UserTaskInstanceWithRelations"][];
     };
     /**
-     * UserTaskInstanceWithRelations
-     * @description (tsType: UserTaskInstanceWithRelations, schemaOptions: { includeRelations: true })
+     * ProcessDefinitionWithRelations
+     * @description (tsType: ProcessDefinitionWithRelations, schemaOptions: { includeRelations: true })
      */
-    UserTaskInstanceWithRelations: {
+    ProcessDefinitionWithRelations: {
       id?: string;
-      instanceId: string;
-      taskId: string;
-      assigneeId?: string;
-      status: string;
+      name: string;
+      bpmnXml: string;
       tenantId?: string;
       tenant?: components["schemas"]["TenantWithRelations"];
       foreignKey?: unknown;
+      processInstances?: components["schemas"]["ProcessInstanceWithRelations"][];
+    };
+    /**
+     * ActorGroupWithRelations
+     * @description (tsType: ActorGroupWithRelations, schemaOptions: { includeRelations: true })
+     */
+    ActorGroupWithRelations: {
+      id?: string;
+      name: string;
+      tenantId?: string;
+      tenant?: components["schemas"]["TenantWithRelations"];
+      foreignKey?: unknown;
+      actors?: components["schemas"]["ActorWithRelations"][];
     };
     /**
      * TenantWithRelations
@@ -156,14 +192,6 @@ export interface components {
       name: string;
       tenantId?: string;
     };
-    /** Actor */
-    Actor: {
-      id?: string;
-      name: string;
-      email: string;
-      actorGroupId?: string;
-      tenantId?: string;
-    };
     /** ProcessInstance */
     ProcessInstance: {
       id?: string;
@@ -172,6 +200,45 @@ export interface components {
       variables?: { [key: string]: unknown };
       state?: { [key: string]: unknown };
       tenantId?: string;
+      processDefinitionId?: string;
+    };
+    /** UserTaskInstance */
+    UserTaskInstance: {
+      id?: string;
+      instanceId: string;
+      taskId: string;
+      assigneeId?: string;
+      status: string;
+      tenantId?: string;
+      processInstanceId?: string;
+      actorId?: string;
+    };
+    /**
+     * NewUserTaskInstanceInProcessInstance
+     * @description (tsType: @loopback/repository-json-schema#Optional<Omit<UserTaskInstance, 'id'>, 'processInstanceId'>, schemaOptions: { title: 'NewUserTaskInstanceInProcessInstance', exclude: [ 'id' ], optional: [ 'processInstanceId' ] })
+     */
+    NewUserTaskInstanceInProcessInstance: {
+      instanceId: string;
+      taskId: string;
+      assigneeId?: string;
+      status: string;
+      tenantId?: string;
+      processInstanceId?: string;
+      actorId?: string;
+    };
+    /**
+     * UserTaskInstancePartial
+     * @description (tsType: Partial<UserTaskInstance>, schemaOptions: { partial: true })
+     */
+    UserTaskInstancePartial: {
+      id?: string;
+      instanceId?: string;
+      taskId?: string;
+      assigneeId?: string;
+      status?: string;
+      tenantId?: string;
+      processInstanceId?: string;
+      actorId?: string;
     };
     /**
      * NewProcessDefinition
@@ -181,6 +248,56 @@ export interface components {
       name: string;
       bpmnXml: string;
       tenantId?: string;
+    };
+    /**
+     * NewProcessInstanceInProcessDefinition
+     * @description (tsType: @loopback/repository-json-schema#Optional<Omit<ProcessInstance, 'id'>, 'processDefinitionId'>, schemaOptions: { title: 'NewProcessInstanceInProcessDefinition', exclude: [ 'id' ], optional: [ 'processDefinitionId' ] })
+     */
+    NewProcessInstanceInProcessDefinition: {
+      definitionId: string;
+      status: string;
+      variables?: { [key: string]: unknown };
+      state?: { [key: string]: unknown };
+      tenantId?: string;
+      processDefinitionId?: string;
+    };
+    /**
+     * ProcessInstancePartial
+     * @description (tsType: Partial<ProcessInstance>, schemaOptions: { partial: true })
+     */
+    ProcessInstancePartial: {
+      id?: string;
+      definitionId?: string;
+      status?: string;
+      variables?: { [key: string]: unknown };
+      state?: { [key: string]: unknown };
+      tenantId?: string;
+      processDefinitionId?: string;
+    };
+    /**
+     * NewActorInActorGroup
+     * @description (tsType: @loopback/repository-json-schema#Optional<Omit<Actor, 'id'>, 'actorGroupId'>, schemaOptions: { title: 'NewActorInActorGroup', exclude: [ 'id' ], optional: [ 'actorGroupId' ] })
+     */
+    NewActorInActorGroup: {
+      name: string;
+      email: string;
+      actorGroupId?: string;
+      tenantId?: string;
+    };
+    /**
+     * ActorPartial
+     * @description (tsType: Partial<Actor>, schemaOptions: { partial: true })
+     */
+    ActorPartial: {
+      id?: string;
+      name?: string;
+      email?: string;
+      actorGroupId?: string;
+      tenantId?: string;
+    };
+    /** loopback.Count */
+    "loopback.Count": {
+      count?: number;
     };
     /** PingResponse */
     PingResponse: {
@@ -205,7 +322,7 @@ export interface components {
     /** ProcessDefinition.IncludeFilter.Items */
     "ProcessDefinition.IncludeFilter.Items": {
       /** @enum {string} */
-      relation?: "tenant";
+      relation?: "tenant" | "processInstances";
       scope?: components["schemas"]["ProcessDefinition.ScopeFilter"];
     };
     /** ProcessDefinition.Filter */
@@ -253,10 +370,6 @@ export interface components {
         components["schemas"]["ProcessDefinition.IncludeFilter.Items"]
       > &
         Partial<string>)[];
-    };
-    /** loopback.Count */
-    "loopback.Count": {
-      count?: number;
     };
     /** Tenant.ScopeFilter */
     "Tenant.ScopeFilter": {
@@ -322,6 +435,85 @@ export interface components {
 }
 
 export interface operations {
+  "ActorGroupActorController.find": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        filter?: unknown;
+      };
+    };
+    responses: {
+      /** Array of ActorGroup has many Actor */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Actor"][];
+        };
+      };
+    };
+  };
+  "ActorGroupActorController.create": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** ActorGroup model instance */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Actor"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NewActorInActorGroup"];
+      };
+    };
+  };
+  "ActorGroupActorController.delete": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        where?: unknown;
+      };
+    };
+    responses: {
+      /** ActorGroup.Actor DELETE success count */
+      200: {
+        content: {
+          "application/json": components["schemas"]["loopback.Count"];
+        };
+      };
+    };
+  };
+  "ActorGroupActorController.patch": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        where?: unknown;
+      };
+    };
+    responses: {
+      /** ActorGroup.Actor PATCH success count */
+      200: {
+        content: {
+          "application/json": components["schemas"]["loopback.Count"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ActorPartial"];
+      };
+    };
+  };
   "PingController.ping": {
     responses: {
       /** Ping Response */
@@ -329,6 +521,85 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["PingResponse"];
         };
+      };
+    };
+  };
+  "ProcessDefinitionProcessInstanceController.find": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        filter?: unknown;
+      };
+    };
+    responses: {
+      /** Array of ProcessDefinition has many ProcessInstance */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ProcessInstance"][];
+        };
+      };
+    };
+  };
+  "ProcessDefinitionProcessInstanceController.create": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** ProcessDefinition model instance */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ProcessInstance"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NewProcessInstanceInProcessDefinition"];
+      };
+    };
+  };
+  "ProcessDefinitionProcessInstanceController.delete": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        where?: unknown;
+      };
+    };
+    responses: {
+      /** ProcessDefinition.ProcessInstance DELETE success count */
+      200: {
+        content: {
+          "application/json": components["schemas"]["loopback.Count"];
+        };
+      };
+    };
+  };
+  "ProcessDefinitionProcessInstanceController.patch": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        where?: unknown;
+      };
+    };
+    responses: {
+      /** ProcessDefinition.ProcessInstance PATCH success count */
+      200: {
+        content: {
+          "application/json": components["schemas"]["loopback.Count"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ProcessInstancePartial"];
       };
     };
   };
@@ -435,6 +706,85 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["NewProcessDefinition"];
+      };
+    };
+  };
+  "ProcessInstanceUserTaskInstanceController.find": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        filter?: unknown;
+      };
+    };
+    responses: {
+      /** Array of ProcessInstance has many UserTaskInstance */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserTaskInstance"][];
+        };
+      };
+    };
+  };
+  "ProcessInstanceUserTaskInstanceController.create": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** ProcessInstance model instance */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserTaskInstance"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NewUserTaskInstanceInProcessInstance"];
+      };
+    };
+  };
+  "ProcessInstanceUserTaskInstanceController.delete": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        where?: unknown;
+      };
+    };
+    responses: {
+      /** ProcessInstance.UserTaskInstance DELETE success count */
+      200: {
+        content: {
+          "application/json": components["schemas"]["loopback.Count"];
+        };
+      };
+    };
+  };
+  "ProcessInstanceUserTaskInstanceController.patch": {
+    parameters: {
+      path: {
+        id: string;
+      };
+      query: {
+        where?: unknown;
+      };
+    };
+    responses: {
+      /** ProcessInstance.UserTaskInstance PATCH success count */
+      200: {
+        content: {
+          "application/json": components["schemas"]["loopback.Count"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserTaskInstancePartial"];
       };
     };
   };
@@ -618,6 +968,21 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["TenantPartial"];
+      };
+    };
+  };
+  "UserTaskInstanceActorController.getActor": {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** Actor belonging to UserTaskInstance */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Actor"];
+        };
       };
     };
   };

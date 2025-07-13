@@ -1,5 +1,6 @@
-import {belongsTo, Entity, model, property} from '@loopback/repository';
+import {belongsTo, Entity, model, property, hasMany} from '@loopback/repository';
 import { Tenant } from './tenant.model';
+import {UserTaskInstance} from './user-task-instance.model';
 
 @model()
 export class ProcessInstance extends Entity {
@@ -36,6 +37,13 @@ export class ProcessInstance extends Entity {
   @belongsTo(() => Tenant)
   tenantId: string;
 
+  @property({
+    type: 'string',
+  })
+  processDefinitionId?: string;
+
+  @hasMany(() => UserTaskInstance)
+  userTaskInstances: UserTaskInstance[];
 
   constructor(data?: Partial<ProcessInstance>) {
     super(data);

@@ -1,5 +1,6 @@
-import {belongsTo, Entity, model, property} from '@loopback/repository';
+import {belongsTo, Entity, model, property, hasMany} from '@loopback/repository';
 import { Tenant } from './tenant.model';
+import {Actor} from './actor.model';
 
 @model()
 export class ActorGroup extends Entity {
@@ -18,7 +19,9 @@ export class ActorGroup extends Entity {
 
   @belongsTo(() => Tenant)
   tenantId: string;
-  
+
+  @hasMany(() => Actor)
+  actors: Actor[];
 
   constructor(data?: Partial<ActorGroup>) {
     super(data);
