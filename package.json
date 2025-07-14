@@ -12,7 +12,8 @@
   "description": "",
   "workspaces": [
     "web",
-    "server"
+    "server",
+    "api"
   ],
   "volta": {
     "node": "24.4.0",
