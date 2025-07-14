@@ -1,0 +1,24 @@
+# OpenAPI Spec Reference
+
+- The OpenAPI spec for the backend API is always available at `openapi/openapi.json` in the project root.
+- All frontend API fetch/query code should be based on the endpoints, request/response shapes, and parameters defined in this spec.
+- When generating new API calls, always consult the latest `openapi/openapi.json` for:
+  - Endpoint paths and HTTP methods
+  - Request body and query parameter schemas
+  - Response types and error formats
+
+## Usage
+
+- Use the OpenAPI spec to generate TypeScript types for API requests and responses.
+- Use the script `npm run generate:api-types` in the web directory to generate types from the OpenAPI spec.
+- If you are unsure about an endpoint, check `openapi/openapi.json` first.
+
+## Automation
+
+- The spec is auto-generated after every backend build or by running `npm run openapi:json` in the server directory.
+- If you add or change backend endpoints, regenerate the spec before updating frontend code.
+- After updating the spec, run `npm run generate:api-types` in the web directory to update the frontend types.
+description:
+globs:
+alwaysApply: false
+---

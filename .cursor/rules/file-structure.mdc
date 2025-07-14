@@ -1,27 +1,42 @@
 # File Organization Structure
+
+This project is a monorepo with two main top-level packages:
+- `web/`: Frontend SPA (React, Vite, Tailwind, TypeScript, shadcn/ui for UI components)
+- `api/`: Backend API (Node.js, TypeScript, NestJS)
+
 ```
-src/
-├── components/
+web/
+├── public/
+│   ├── bike-example/
+│   └── bpmn-xml-examples/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   └── bpmn/
+│   │   // shadcn components will be generated in 'components/ui' as needed
+│   ├── lib/
+│   ├── routes/
+│   │   └── bpmn/
+│   ├── types/
+│   └── ...
+├── package.json
+└── ...
+
+api/
+├── src/
+│   ├── app.module.ts
+│   ├── main.ts
 │   ├── bpmn/
-│   │   ├── BpmnViewer.tsx
-│   │   ├── BpmnEditor.tsx
-│   │   └── BpmnToolbar.tsx
-│   ├── common/
-│   │   ├── Button.tsx
-│   │   └── Modal.tsx
-│   └── layout/
-│       └── Sidebar.tsx
-├── hooks/
-│   ├── useBpmnModel.ts
-│   └── useProcessData.ts
-├── types/
-│   ├── bpmn.ts
-│   └── process.ts
-├── utils/
-│   ├── bpmn-helpers.ts
-│   └── process-utils.ts
-└── constants/
-    └── bpmn-constants.ts
+│   ├── user-task-instances/
+│   ├── process-instances/
+│   ├── process-definitions/
+│   ├── actors/
+│   ├── actor-groups/
+│   ├── tenants/
+│   ├── entities/
+│   └── ...
+├── package.json
+└── ...
 ```
 
 # Import/Export Guidelines

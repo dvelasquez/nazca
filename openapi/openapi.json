@@ -1,0 +1,1398 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/ping": {
+      "get": {
+        "operationId": "AppController_ping",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/tenants": {
+      "get": {
+        "operationId": "TenantsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      },
+      "post": {
+        "operationId": "TenantsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      },
+      "put": {
+        "operationId": "TenantsController_updateAll",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTenantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      }
+    },
+    "/tenants/count": {
+      "get": {
+        "operationId": "TenantsController_count",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      }
+    },
+    "/tenants/{id}": {
+      "get": {
+        "operationId": "TenantsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      },
+      "put": {
+        "operationId": "TenantsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTenantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      },
+      "delete": {
+        "operationId": "TenantsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      }
+    },
+    "/tenants/{id}/replace": {
+      "put": {
+        "operationId": "TenantsController_replaceById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTenantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      }
+    },
+    "/tenants/{id}/actors": {
+      "get": {
+        "operationId": "TenantsController_findActors",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      }
+    },
+    "/tenants/{id}/actor-groups": {
+      "get": {
+        "operationId": "TenantsController_findActorGroups",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      }
+    },
+    "/tenants/{id}/process-definitions": {
+      "get": {
+        "operationId": "TenantsController_findProcessDefinitions",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Tenants"
+        ]
+      }
+    },
+    "/actor-groups": {
+      "get": {
+        "operationId": "ActorGroupsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      },
+      "post": {
+        "operationId": "ActorGroupsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateActorGroupDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      }
+    },
+    "/actor-groups/{id}": {
+      "get": {
+        "operationId": "ActorGroupsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      },
+      "put": {
+        "operationId": "ActorGroupsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActorGroupDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      },
+      "delete": {
+        "operationId": "ActorGroupsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      }
+    },
+    "/actor-groups/{id}/actors": {
+      "get": {
+        "operationId": "ActorGroupsController_findActors",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      },
+      "post": {
+        "operationId": "ActorGroupsController_createActor",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateActorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      },
+      "patch": {
+        "operationId": "ActorGroupsController_patchActors",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      },
+      "delete": {
+        "operationId": "ActorGroupsController_deleteActors",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ActorGroups"
+        ]
+      }
+    },
+    "/actors": {
+      "get": {
+        "operationId": "ActorsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Actors"
+        ]
+      },
+      "post": {
+        "operationId": "ActorsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateActorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Actors"
+        ]
+      }
+    },
+    "/actors/{id}": {
+      "get": {
+        "operationId": "ActorsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Actors"
+        ]
+      },
+      "put": {
+        "operationId": "ActorsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Actors"
+        ]
+      },
+      "delete": {
+        "operationId": "ActorsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Actors"
+        ]
+      }
+    },
+    "/process-definitions": {
+      "get": {
+        "operationId": "ProcessDefinitionsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      },
+      "post": {
+        "operationId": "ProcessDefinitionsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProcessDefinitionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      }
+    },
+    "/process-definitions/{id}": {
+      "get": {
+        "operationId": "ProcessDefinitionsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      },
+      "put": {
+        "operationId": "ProcessDefinitionsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProcessDefinitionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      },
+      "delete": {
+        "operationId": "ProcessDefinitionsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      }
+    },
+    "/process-definitions/{id}/process-instances": {
+      "get": {
+        "operationId": "ProcessDefinitionsController_findProcessInstances",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      },
+      "post": {
+        "operationId": "ProcessDefinitionsController_createProcessInstance",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProcessInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      },
+      "patch": {
+        "operationId": "ProcessDefinitionsController_patchProcessInstances",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProcessInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      },
+      "delete": {
+        "operationId": "ProcessDefinitionsController_deleteProcessInstances",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessDefinitions"
+        ]
+      }
+    },
+    "/process-instances": {
+      "get": {
+        "operationId": "ProcessInstancesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      },
+      "post": {
+        "operationId": "ProcessInstancesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProcessInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      }
+    },
+    "/process-instances/{id}": {
+      "get": {
+        "operationId": "ProcessInstancesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      },
+      "put": {
+        "operationId": "ProcessInstancesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProcessInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      },
+      "delete": {
+        "operationId": "ProcessInstancesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      }
+    },
+    "/process-instances/{id}/user-task-instances": {
+      "get": {
+        "operationId": "ProcessInstancesController_findUserTaskInstances",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      },
+      "post": {
+        "operationId": "ProcessInstancesController_createUserTaskInstance",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserTaskInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      },
+      "patch": {
+        "operationId": "ProcessInstancesController_patchUserTaskInstances",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserTaskInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      },
+      "delete": {
+        "operationId": "ProcessInstancesController_deleteUserTaskInstances",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ProcessInstances"
+        ]
+      }
+    },
+    "/user-task-instances": {
+      "get": {
+        "operationId": "UserTaskInstancesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "UserTaskInstances"
+        ]
+      },
+      "post": {
+        "operationId": "UserTaskInstancesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserTaskInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "UserTaskInstances"
+        ]
+      }
+    },
+    "/user-task-instances/{id}": {
+      "get": {
+        "operationId": "UserTaskInstancesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "UserTaskInstances"
+        ]
+      },
+      "put": {
+        "operationId": "UserTaskInstancesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserTaskInstanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "UserTaskInstances"
+        ]
+      },
+      "delete": {
+        "operationId": "UserTaskInstancesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "UserTaskInstances"
+        ]
+      }
+    },
+    "/user-task-instances/{id}/assignee": {
+      "get": {
+        "operationId": "UserTaskInstancesController_findAssignee",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "UserTaskInstances"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "API",
+    "description": "The API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateTenantDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateTenantDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateActorGroupDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "tenantId"
+        ]
+      },
+      "UpdateActorGroupDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateActorDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "actorGroupId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "tenantId"
+        ]
+      },
+      "UpdateActorDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "actorGroupId": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateProcessDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "bpmnXml": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "bpmnXml",
+          "tenantId"
+        ]
+      },
+      "UpdateProcessDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "bpmnXml": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateProcessInstanceDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "variables": {
+            "type": "object"
+          },
+          "state": {
+            "type": "object"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "tenantId",
+          "processDefinitionId"
+        ]
+      },
+      "UpdateProcessInstanceDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "variables": {
+            "type": "object"
+          },
+          "state": {
+            "type": "object"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateUserTaskInstanceDto": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processInstanceId": {
+            "type": "string"
+          },
+          "assigneeId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "taskId",
+          "status",
+          "tenantId",
+          "processInstanceId"
+        ]
+      },
+      "UpdateUserTaskInstanceDto": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processInstanceId": {
+            "type": "string"
+          },
+          "assigneeId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

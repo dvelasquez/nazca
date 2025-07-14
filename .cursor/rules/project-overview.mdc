@@ -1,5 +1,7 @@
 # Project Overview
-This is a BPMN (Business Process Model and Notation) engine built with React, Vite, TypeScript, and bpmn-js. The project focuses on creating a modular, functional, and maintainable codebase for business process modeling and execution.
+This is a BPMN (Business Process Model and Notation) engine built as a monorepo with two main packages:
+- `web/`: A modern SPA frontend using React, Vite, TypeScript, bpmn-js for business process modeling and execution, and shadcn/ui for UI components (added via CLI as needed).
+- `api/`: A Node.js API backend built with TypeScript and NestJS, designed for modular, maintainable business process APIs.
 description:
 globs:
 alwaysApply: false

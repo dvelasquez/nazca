@@ -11,8 +11,20 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as BpmnViewerRouteImport } from './routes/bpmn/viewer'
-import { Route as BpmnEditorRouteImport } from './routes/bpmn/editor'
+import { Route as AdminTenantsIndexRouteImport } from './routes/admin/tenants/index'
+import { Route as AdminProcessDefinitionsIndexRouteImport } from './routes/admin/process-definitions/index'
+import { Route as AdminActorsIndexRouteImport } from './routes/admin/actors/index'
+import { Route as AdminActorGroupsIndexRouteImport } from './routes/admin/actor-groups/index'
+import { Route as AdminTenantsNewRouteImport } from './routes/admin/tenants/new'
+import { Route as AdminProcessDefinitionsNewRouteImport } from './routes/admin/process-definitions/new'
+import { Route as AdminProcessDefinitionsIdRouteImport } from './routes/admin/process-definitions/$id'
+import { Route as AdminActorsNewRouteImport } from './routes/admin/actors/new'
+import { Route as AdminActorGroupsNewRouteImport } from './routes/admin/actor-groups/new'
+import { Route as AdminTenantsIdEditRouteImport } from './routes/admin/tenants/$id/edit'
+import { Route as AdminActorsIdEditRouteImport } from './routes/admin/actors/$id/edit'
+import { Route as AdminActorGroupsIdEditRouteImport } from './routes/admin/actor-groups/$id/edit'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -24,49 +36,209 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BpmnViewerRoute = BpmnViewerRouteImport.update({
   id: '/bpmn/viewer',
   path: '/bpmn/viewer',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BpmnEditorRoute = BpmnEditorRouteImport.update({
-  id: '/bpmn/editor',
-  path: '/bpmn/editor',
+const AdminTenantsIndexRoute = AdminTenantsIndexRouteImport.update({
+  id: '/admin/tenants/',
+  path: '/admin/tenants/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProcessDefinitionsIndexRoute =
+  AdminProcessDefinitionsIndexRouteImport.update({
+    id: '/admin/process-definitions/',
+    path: '/admin/process-definitions/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdminActorsIndexRoute = AdminActorsIndexRouteImport.update({
+  id: '/admin/actors/',
+  path: '/admin/actors/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminActorGroupsIndexRoute = AdminActorGroupsIndexRouteImport.update({
+  id: '/admin/actor-groups/',
+  path: '/admin/actor-groups/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTenantsNewRoute = AdminTenantsNewRouteImport.update({
+  id: '/admin/tenants/new',
+  path: '/admin/tenants/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProcessDefinitionsNewRoute =
+  AdminProcessDefinitionsNewRouteImport.update({
+    id: '/admin/process-definitions/new',
+    path: '/admin/process-definitions/new',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdminProcessDefinitionsIdRoute =
+  AdminProcessDefinitionsIdRouteImport.update({
+    id: '/admin/process-definitions/$id',
+    path: '/admin/process-definitions/$id',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdminActorsNewRoute = AdminActorsNewRouteImport.update({
+  id: '/admin/actors/new',
+  path: '/admin/actors/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminActorGroupsNewRoute = AdminActorGroupsNewRouteImport.update({
+  id: '/admin/actor-groups/new',
+  path: '/admin/actor-groups/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTenantsIdEditRoute = AdminTenantsIdEditRouteImport.update({
+  id: '/admin/tenants/$id/edit',
+  path: '/admin/tenants/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminActorsIdEditRoute = AdminActorsIdEditRouteImport.update({
+  id: '/admin/actors/$id/edit',
+  path: '/admin/actors/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminActorGroupsIdEditRoute = AdminActorGroupsIdEditRouteImport.update({
+  id: '/admin/actor-groups/$id/edit',
+  path: '/admin/actor-groups/$id/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/bpmn/editor': typeof BpmnEditorRoute
   '/bpmn/viewer': typeof BpmnViewerRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/actor-groups/new': typeof AdminActorGroupsNewRoute
+  '/admin/actors/new': typeof AdminActorsNewRoute
+  '/admin/process-definitions/$id': typeof AdminProcessDefinitionsIdRoute
+  '/admin/process-definitions/new': typeof AdminProcessDefinitionsNewRoute
+  '/admin/tenants/new': typeof AdminTenantsNewRoute
+  '/admin/actor-groups': typeof AdminActorGroupsIndexRoute
+  '/admin/actors': typeof AdminActorsIndexRoute
+  '/admin/process-definitions': typeof AdminProcessDefinitionsIndexRoute
+  '/admin/tenants': typeof AdminTenantsIndexRoute
+  '/admin/actor-groups/$id/edit': typeof AdminActorGroupsIdEditRoute
+  '/admin/actors/$id/edit': typeof AdminActorsIdEditRoute
+  '/admin/tenants/$id/edit': typeof AdminTenantsIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/bpmn/editor': typeof BpmnEditorRoute
   '/bpmn/viewer': typeof BpmnViewerRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/actor-groups/new': typeof AdminActorGroupsNewRoute
+  '/admin/actors/new': typeof AdminActorsNewRoute
+  '/admin/process-definitions/$id': typeof AdminProcessDefinitionsIdRoute
+  '/admin/process-definitions/new': typeof AdminProcessDefinitionsNewRoute
+  '/admin/tenants/new': typeof AdminTenantsNewRoute
+  '/admin/actor-groups': typeof AdminActorGroupsIndexRoute
+  '/admin/actors': typeof AdminActorsIndexRoute
+  '/admin/process-definitions': typeof AdminProcessDefinitionsIndexRoute
+  '/admin/tenants': typeof AdminTenantsIndexRoute
+  '/admin/actor-groups/$id/edit': typeof AdminActorGroupsIdEditRoute
+  '/admin/actors/$id/edit': typeof AdminActorsIdEditRoute
+  '/admin/tenants/$id/edit': typeof AdminTenantsIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/bpmn/editor': typeof BpmnEditorRoute
   '/bpmn/viewer': typeof BpmnViewerRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/actor-groups/new': typeof AdminActorGroupsNewRoute
+  '/admin/actors/new': typeof AdminActorsNewRoute
+  '/admin/process-definitions/$id': typeof AdminProcessDefinitionsIdRoute
+  '/admin/process-definitions/new': typeof AdminProcessDefinitionsNewRoute
+  '/admin/tenants/new': typeof AdminTenantsNewRoute
+  '/admin/actor-groups/': typeof AdminActorGroupsIndexRoute
+  '/admin/actors/': typeof AdminActorsIndexRoute
+  '/admin/process-definitions/': typeof AdminProcessDefinitionsIndexRoute
+  '/admin/tenants/': typeof AdminTenantsIndexRoute
+  '/admin/actor-groups/$id/edit': typeof AdminActorGroupsIdEditRoute
+  '/admin/actors/$id/edit': typeof AdminActorsIdEditRoute
+  '/admin/tenants/$id/edit': typeof AdminTenantsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/bpmn/editor' | '/bpmn/viewer'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/bpmn/viewer'
+    | '/admin'
+    | '/admin/actor-groups/new'
+    | '/admin/actors/new'
+    | '/admin/process-definitions/$id'
+    | '/admin/process-definitions/new'
+    | '/admin/tenants/new'
+    | '/admin/actor-groups'
+    | '/admin/actors'
+    | '/admin/process-definitions'
+    | '/admin/tenants'
+    | '/admin/actor-groups/$id/edit'
+    | '/admin/actors/$id/edit'
+    | '/admin/tenants/$id/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/bpmn/editor' | '/bpmn/viewer'
-  id: '__root__' | '/' | '/about' | '/bpmn/editor' | '/bpmn/viewer'
+  to:
+    | '/'
+    | '/about'
+    | '/bpmn/viewer'
+    | '/admin'
+    | '/admin/actor-groups/new'
+    | '/admin/actors/new'
+    | '/admin/process-definitions/$id'
+    | '/admin/process-definitions/new'
+    | '/admin/tenants/new'
+    | '/admin/actor-groups'
+    | '/admin/actors'
+    | '/admin/process-definitions'
+    | '/admin/tenants'
+    | '/admin/actor-groups/$id/edit'
+    | '/admin/actors/$id/edit'
+    | '/admin/tenants/$id/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/bpmn/viewer'
+    | '/admin/'
+    | '/admin/actor-groups/new'
+    | '/admin/actors/new'
+    | '/admin/process-definitions/$id'
+    | '/admin/process-definitions/new'
+    | '/admin/tenants/new'
+    | '/admin/actor-groups/'
+    | '/admin/actors/'
+    | '/admin/process-definitions/'
+    | '/admin/tenants/'
+    | '/admin/actor-groups/$id/edit'
+    | '/admin/actors/$id/edit'
+    | '/admin/tenants/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  BpmnEditorRoute: typeof BpmnEditorRoute
   BpmnViewerRoute: typeof BpmnViewerRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminActorGroupsNewRoute: typeof AdminActorGroupsNewRoute
+  AdminActorsNewRoute: typeof AdminActorsNewRoute
+  AdminProcessDefinitionsIdRoute: typeof AdminProcessDefinitionsIdRoute
+  AdminProcessDefinitionsNewRoute: typeof AdminProcessDefinitionsNewRoute
+  AdminTenantsNewRoute: typeof AdminTenantsNewRoute
+  AdminActorGroupsIndexRoute: typeof AdminActorGroupsIndexRoute
+  AdminActorsIndexRoute: typeof AdminActorsIndexRoute
+  AdminProcessDefinitionsIndexRoute: typeof AdminProcessDefinitionsIndexRoute
+  AdminTenantsIndexRoute: typeof AdminTenantsIndexRoute
+  AdminActorGroupsIdEditRoute: typeof AdminActorGroupsIdEditRoute
+  AdminActorsIdEditRoute: typeof AdminActorsIdEditRoute
+  AdminTenantsIdEditRoute: typeof AdminTenantsIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bpmn/viewer': {
       id: '/bpmn/viewer'
       path: '/bpmn/viewer'
@@ -92,11 +271,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BpmnViewerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bpmn/editor': {
-      id: '/bpmn/editor'
-      path: '/bpmn/editor'
-      fullPath: '/bpmn/editor'
-      preLoaderRoute: typeof BpmnEditorRouteImport
+    '/admin/tenants/': {
+      id: '/admin/tenants/'
+      path: '/admin/tenants'
+      fullPath: '/admin/tenants'
+      preLoaderRoute: typeof AdminTenantsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/process-definitions/': {
+      id: '/admin/process-definitions/'
+      path: '/admin/process-definitions'
+      fullPath: '/admin/process-definitions'
+      preLoaderRoute: typeof AdminProcessDefinitionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/actors/': {
+      id: '/admin/actors/'
+      path: '/admin/actors'
+      fullPath: '/admin/actors'
+      preLoaderRoute: typeof AdminActorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/actor-groups/': {
+      id: '/admin/actor-groups/'
+      path: '/admin/actor-groups'
+      fullPath: '/admin/actor-groups'
+      preLoaderRoute: typeof AdminActorGroupsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/tenants/new': {
+      id: '/admin/tenants/new'
+      path: '/admin/tenants/new'
+      fullPath: '/admin/tenants/new'
+      preLoaderRoute: typeof AdminTenantsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/process-definitions/new': {
+      id: '/admin/process-definitions/new'
+      path: '/admin/process-definitions/new'
+      fullPath: '/admin/process-definitions/new'
+      preLoaderRoute: typeof AdminProcessDefinitionsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/process-definitions/$id': {
+      id: '/admin/process-definitions/$id'
+      path: '/admin/process-definitions/$id'
+      fullPath: '/admin/process-definitions/$id'
+      preLoaderRoute: typeof AdminProcessDefinitionsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/actors/new': {
+      id: '/admin/actors/new'
+      path: '/admin/actors/new'
+      fullPath: '/admin/actors/new'
+      preLoaderRoute: typeof AdminActorsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/actor-groups/new': {
+      id: '/admin/actor-groups/new'
+      path: '/admin/actor-groups/new'
+      fullPath: '/admin/actor-groups/new'
+      preLoaderRoute: typeof AdminActorGroupsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/tenants/$id/edit': {
+      id: '/admin/tenants/$id/edit'
+      path: '/admin/tenants/$id/edit'
+      fullPath: '/admin/tenants/$id/edit'
+      preLoaderRoute: typeof AdminTenantsIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/actors/$id/edit': {
+      id: '/admin/actors/$id/edit'
+      path: '/admin/actors/$id/edit'
+      fullPath: '/admin/actors/$id/edit'
+      preLoaderRoute: typeof AdminActorsIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/actor-groups/$id/edit': {
+      id: '/admin/actor-groups/$id/edit'
+      path: '/admin/actor-groups/$id/edit'
+      fullPath: '/admin/actor-groups/$id/edit'
+      preLoaderRoute: typeof AdminActorGroupsIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -105,8 +361,20 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  BpmnEditorRoute: BpmnEditorRoute,
   BpmnViewerRoute: BpmnViewerRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminActorGroupsNewRoute: AdminActorGroupsNewRoute,
+  AdminActorsNewRoute: AdminActorsNewRoute,
+  AdminProcessDefinitionsIdRoute: AdminProcessDefinitionsIdRoute,
+  AdminProcessDefinitionsNewRoute: AdminProcessDefinitionsNewRoute,
+  AdminTenantsNewRoute: AdminTenantsNewRoute,
+  AdminActorGroupsIndexRoute: AdminActorGroupsIndexRoute,
+  AdminActorsIndexRoute: AdminActorsIndexRoute,
+  AdminProcessDefinitionsIndexRoute: AdminProcessDefinitionsIndexRoute,
+  AdminTenantsIndexRoute: AdminTenantsIndexRoute,
+  AdminActorGroupsIdEditRoute: AdminActorGroupsIdEditRoute,
+  AdminActorsIdEditRoute: AdminActorsIdEditRoute,
+  AdminTenantsIdEditRoute: AdminTenantsIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
