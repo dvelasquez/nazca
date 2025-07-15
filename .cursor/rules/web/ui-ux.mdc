@@ -1,3 +1,10 @@
+---
+description: UI/UX rules for Cursor web application.
+globs:
+  - "**/*.{html,css,js,ts,tsx,jsx,scss,sass,less}"
+alwaysApply: true
+---
+
 # UI/UX Rule for Cursor
 
 **Scope:** All files in `./web` (UI, UX, and design-related changes)

@@ -1,9 +1,11 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
 # Testing Guidelines
 - Write unit tests for utility functions
 - Test component behavior, not implementation
 - Mock bpmn-js dependencies appropriately
 - Use meaningful test descriptions
-description:
-globs:
-alwaysApply: false
----

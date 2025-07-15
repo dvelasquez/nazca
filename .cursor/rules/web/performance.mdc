@@ -1,10 +1,12 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
 # Performance Considerations
 - Use React.memo for expensive components
 - Implement proper key props for lists
 - Avoid creating objects/functions in render
 - Use useCallback/useMemo sparingly and only when needed
 - Prefer composition over inheritance
-description:
-globs:
-alwaysApply: false
----

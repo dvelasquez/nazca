@@ -1,3 +1,9 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
 # Example Component Structure
 ```typescript
 // Component with proper structure
@@ -30,7 +36,3 @@ function BpmnViewer({ processData, onElementSelect }: BpmnViewerProps) {
 }
 
 export default BpmnViewer
-description:
-globs:
-alwaysApply: false
----

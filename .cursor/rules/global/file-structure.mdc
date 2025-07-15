@@ -1,3 +1,9 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
 # File Organization Structure
 
 This project is a monorepo with two main top-level packages:
@@ -44,7 +50,3 @@ api/
 - Use named exports for components and utilities
 - Use default exports sparingly (mainly for main components)
 - Group imports: React → third-party → internal → types → styles
-description:
-globs:
-alwaysApply: false
----

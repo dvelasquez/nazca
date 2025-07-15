@@ -1,10 +1,12 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
 # BPMN-Specific Guidelines
 - Create typed interfaces for BPMN elements
 - Handle BPMN events through proper event handlers
 - Separate BPMN logic from UI components
 - Use constants for BPMN element types and properties
 - Implement proper cleanup for BPMN instances
-description:
-globs:
-alwaysApply: false
----

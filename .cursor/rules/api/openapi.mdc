@@ -1,3 +1,9 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
 # OpenAPI Spec Reference
 
 - The OpenAPI spec for the backend API is always available at `openapi/openapi.json` in the project root.
@@ -18,7 +24,3 @@
 - The spec is auto-generated after every backend build or by running `npm run openapi:json` in the server directory.
 - If you add or change backend endpoints, regenerate the spec before updating frontend code.
 - After updating the spec, run `npm run generate:api-types` in the web directory to update the frontend types.
-description:
-globs:
-alwaysApply: false
----

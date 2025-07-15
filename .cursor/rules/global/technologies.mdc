@@ -1,3 +1,9 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+
 # Core Technologies
 
 ## Frontend (`web/`)
@@ -19,7 +25,3 @@
 - The frontend development server runs at: http://localhost:5173/
 - Playwright MCP is installed and integrated for frontend testing.
 - When suggesting to check the view or perform browser-based inspection, use the MCP server and inspect the browser at the dev server URL via Cursor's Playwright tools.
-description:
-globs:
-alwaysApply: false
----

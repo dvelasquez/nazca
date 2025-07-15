@@ -1,6 +1,6 @@
 ---
 description: TanStack Router: API
-globs: src/**/*.ts,src/**/*.tsx
+globs: web/src/**/*.ts,web/src/**/*.tsx
 alwaysApply: false
 ---
 # ActiveLinkOptions type
