@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { Tenant } from './tenant.entity';
-import { ActorGroup } from './actor-group.entity';
+import { BaseEntity } from '../../entities/base.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { ActorGroup } from '../../actor-groups/entities/actor-group.entity';
 
 @Entity()
 export class Actor extends BaseEntity {

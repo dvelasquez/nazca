@@ -1,10 +1,10 @@
 import { Entity, Column, OneToMany } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { ProcessDefinition } from './process-definition.entity';
-import { Actor } from './actor.entity';
-import { ActorGroup } from './actor-group.entity';
-import { ProcessInstance } from './process-instance.entity';
-import { UserTaskInstance } from './user-task-instance.entity';
+import { BaseEntity } from '../../entities/base.entity';
+import { ProcessDefinition } from '../../process-definitions/entities/process-definition.entity';
+import { Actor } from '../../actors/entities/actor.entity';
+import { ActorGroup } from '../../actor-groups/entities/actor-group.entity';
+import { ProcessInstance } from '../../process-instances/entities/process-instance.entity';
+import { UserTaskInstance } from '../../user-task-instances/entities/user-task-instance.entity';
 
 @Entity()
 export class Tenant extends BaseEntity {

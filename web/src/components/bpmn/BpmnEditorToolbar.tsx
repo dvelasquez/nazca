@@ -1,49 +1,37 @@
-import type { ProcessDefinitionWithRelations } from '../../services/bpmn-service'
+import type { Tenant } from '../../services/tenant-service'
 
 export interface BpmnEditorToolbarProps {
-  models: ProcessDefinitionWithRelations[]
-  selectedProcessDefinitionId: string | null
-  onSelectProcessDefinition: (id: string | null) => void
-  onNewProcessDefinition: () => void
-  onSave: () => void
-  onImport: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onExportXml: () => void
-  onReset: () => void
   processDefinitionName: string
   onProcessDefinitionNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onImportXml: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onSave: () => void
   isLoading: boolean
   error: string | null
-  tenants: any[]
-  selectedTenantId: string | null
+  tenant: Tenant | null
+  tenants: Tenant[]
   onSelectTenant: (id: string | null) => void
 }
 
 /**
- * Toolbar for BPMN editor: ProcessDefinition selection, create, save, import/export, reset, name, and error display.
+ * Toolbar for editing a single BPMN process definition: tenant, name, import XML, save, error display.
  */
 export function BpmnEditorToolbar({
-  models,
-  selectedProcessDefinitionId,
-  onSelectProcessDefinition,
-  onNewProcessDefinition,
-  onSave,
-  onImport,
-  onExportXml,
-  onReset,
   processDefinitionName,
   onProcessDefinitionNameChange,
+  onImportXml,
+  onSave,
   isLoading,
   error,
+  tenant,
   tenants,
-  selectedTenantId,
   onSelectTenant
 }: BpmnEditorToolbarProps) {
   return (
     <>
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center gap-2 mb-4 w-full">
         {/* Tenant selector */}
         <select
-          value={selectedTenantId || ''}
+          value={tenant?.id || ''}
           onChange={e => onSelectTenant(e.target.value || null)}
           className="select select-bordered"
           data-testid="tenant-selector"
@@ -53,25 +41,6 @@ export function BpmnEditorToolbar({
             <option key={t.id} value={t.id}>{t.name}</option>
           ))}
         </select>
-        {/* ProcessDefinition selector */}
-        <select
-          value={selectedProcessDefinitionId || ''}
-          onChange={e => onSelectProcessDefinition(e.target.value || null)}
-          className="select select-bordered"
-          data-testid="process-definition-selector"
-        >
-          <option value="">Select ProcessDefinition...</option>
-          {models.map((m) => (
-            <option key={m.id} value={m.id}>{m.name}</option>
-          ))}
-        </select>
-        {/* New ProcessDefinition button */}
-        <button
-          onClick={onNewProcessDefinition}
-          className="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-          data-testid="new-process-definition"
-          disabled={isLoading}
-        >New ProcessDefinition</button>
         {/* Save button */}
         <button
           onClick={onSave}
@@ -82,20 +51,10 @@ export function BpmnEditorToolbar({
         <input
           type="file"
           accept=".bpmn,.xml"
-          onChange={onImport}
+          onChange={onImportXml}
           className="file-input file-input-bordered"
           data-testid="import-bpmn"
         />
-        <button
-          onClick={onExportXml}
-          className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-          data-testid="export-xml"
-        >Export XML</button>
-        <button
-          onClick={onReset}
-          className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
-          data-testid="reset-diagram"
-        >Reset</button>
       </div>
       <div className="mb-4 flex items-center gap-2">
         <label htmlFor="process-definition-name" className="font-medium">ProcessDefinition Name:</label>

@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { Tenant } from './tenant.entity';
-import { Actor } from './actor.entity';
+import { BaseEntity } from '../../entities/base.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { Actor } from '../../actors/entities/actor.entity';
 
 @Entity()
 export class ActorGroup extends BaseEntity {

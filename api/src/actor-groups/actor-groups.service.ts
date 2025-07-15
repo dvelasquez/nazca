@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ActorGroup, Actor } from '../entities';
+import { ActorGroup } from './entities/actor-group.entity';
+import { Actor } from '../actors/entities/actor.entity';
 
 @Injectable()
 export class ActorGroupsService {

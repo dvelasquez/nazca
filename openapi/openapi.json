@@ -35,7 +35,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseTenantDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -57,7 +67,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseTenantDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -79,7 +96,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseTenantDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -93,7 +117,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -116,7 +147,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseTenantDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -147,7 +185,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseTenantDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -168,7 +213,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseTenantDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -201,7 +253,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseTenantDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -224,7 +283,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -247,7 +316,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -270,7 +349,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -284,7 +373,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseActorGroupDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -306,7 +405,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorGroupDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -329,7 +435,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorGroupDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -360,7 +473,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorGroupDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -381,7 +501,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorGroupDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -404,7 +531,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseActorDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -435,7 +572,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -466,7 +610,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -487,7 +638,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -501,7 +659,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseActorDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -523,7 +691,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -546,7 +721,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -577,7 +759,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -598,7 +787,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseActorDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -612,7 +808,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseProcessDefinitionDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -634,7 +840,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessDefinitionDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -657,7 +870,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessDefinitionDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -688,7 +908,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessDefinitionDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -709,7 +936,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessDefinitionDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -732,7 +966,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -763,7 +1007,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -794,7 +1045,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -815,7 +1073,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -829,7 +1094,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -851,7 +1126,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -874,7 +1156,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -905,7 +1194,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -926,7 +1222,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseProcessInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -949,7 +1252,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -980,7 +1293,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1011,7 +1331,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1032,7 +1359,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1046,7 +1380,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1068,7 +1412,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1091,7 +1442,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1122,7 +1480,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1143,7 +1508,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserTaskInstanceDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1166,11 +1538,167 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "tags": [
           "UserTaskInstances"
+        ]
+      }
+    },
+    "/users": {
+      "post": {
+        "operationId": "UsersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      },
+      "get": {
+        "operationId": "UsersController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseUserDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "operationId": "UsersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      },
+      "patch": {
+        "operationId": "UsersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      },
+      "delete": {
+        "operationId": "UsersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUserDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
         ]
       }
     }
@@ -1185,6 +1713,31 @@
   "servers": [],
   "components": {
     "schemas": {
+      "ResponseTenantDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
       "CreateTenantDto": {
         "type": "object",
         "properties": {
@@ -1203,6 +1756,35 @@
             "type": "string"
           }
         }
+      },
+      "ResponseActorGroupDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "tenantId",
+          "createdAt",
+          "updatedAt"
+        ]
       },
       "CreateActorGroupDto": {
         "type": "object",
@@ -1229,6 +1811,42 @@
             "type": "string"
           }
         }
+      },
+      "ResponseActorDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "actorGroupId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "tenantId",
+          "createdAt",
+          "updatedAt"
+        ]
       },
       "CreateActorDto": {
         "type": "object",
@@ -1269,6 +1887,39 @@
           }
         }
       },
+      "ResponseProcessDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "bpmnXml": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "bpmnXml",
+          "tenantId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
       "CreateProcessDefinitionDto": {
         "type": "object",
         "properties": {
@@ -1300,7 +1951,50 @@
           "tenantId": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "name",
+          "tenantId"
+        ]
+      },
+      "ResponseProcessInstanceDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "variables": {
+            "type": "object"
+          },
+          "state": {
+            "type": "object"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processDefinitionId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "tenantId",
+          "processDefinitionId",
+          "createdAt",
+          "updatedAt"
+        ]
       },
       "CreateProcessInstanceDto": {
         "type": "object",
@@ -1347,6 +2041,46 @@
           }
         }
       },
+      "ResponseUserTaskInstanceDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "taskId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "processInstanceId": {
+            "type": "string"
+          },
+          "assigneeId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "taskId",
+          "status",
+          "tenantId",
+          "processInstanceId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
       "CreateUserTaskInstanceDto": {
         "type": "object",
         "properties": {
@@ -1392,6 +2126,35 @@
             "type": "string"
           }
         }
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "ResponseUserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {}
       }
     }
   }

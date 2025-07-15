@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Tenant, Actor, ActorGroup, ProcessDefinition } from '../entities';
+import { Tenant } from './entities/tenant.entity';
+import { Actor } from '../actors/entities/actor.entity';
+import { ActorGroup } from '../actor-groups/entities/actor-group.entity';
+import { ProcessDefinition } from '../process-definitions/entities/process-definition.entity';
 
 @Injectable()
 export class TenantsService {

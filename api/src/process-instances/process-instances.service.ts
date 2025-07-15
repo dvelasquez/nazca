@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProcessInstance, UserTaskInstance } from '../entities';
+import { ProcessInstance } from './entities/process-instance.entity';
+import { UserTaskInstance } from '../user-task-instances/entities/user-task-instance.entity';
 
 @Injectable()
 export class ProcessInstancesService {

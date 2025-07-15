@@ -11,7 +11,8 @@ export class CreateProcessDefinitionDto {
 
   @ApiProperty()
   @IsString()
-  bpmnXml: string;
+  @IsOptional()
+  bpmnXml?: string;
 
   @ApiProperty()
   @IsUUID()
@@ -22,20 +23,18 @@ export class CreateProcessDefinitionDto {
  * DTO for updating a ProcessDefinition
  */
 export class UpdateProcessDefinitionDto {
-  @ApiProperty({ required: false })
-  @IsOptional()
+  @ApiProperty({ required: true })
   @IsString()
-  name?: string;
+  name: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   bpmnXml?: string;
 
-  @ApiProperty({ required: false })
-  @IsOptional()
+  @ApiProperty({ required: true })
   @IsUUID()
-  tenantId?: string;
+  tenantId: string;
 }
 
 /**

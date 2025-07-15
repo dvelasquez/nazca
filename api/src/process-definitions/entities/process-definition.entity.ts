@@ -1,15 +1,15 @@
 import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { Tenant } from './tenant.entity';
-import { ProcessInstance } from './process-instance.entity';
+import { BaseEntity } from '../../entities/base.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { ProcessInstance } from '../../process-instances/entities/process-instance.entity';
 
 @Entity()
 export class ProcessDefinition extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ type: 'text' })
-  bpmnXml: string;
+  @Column({ type: 'text', nullable: true })
+  bpmnXml?: string;
 
   @ManyToOne(() => Tenant, (tenant) => tenant.processDefinitions)
   tenant: Tenant;

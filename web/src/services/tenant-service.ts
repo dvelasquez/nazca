@@ -2,6 +2,7 @@ import type { components } from '../types/api.d.ts'
 
 export type CreateTenantDto = components['schemas']['CreateTenantDto']
 export type UpdateTenantDto = components['schemas']['UpdateTenantDto']
+export type Tenant = components['schemas']['ResponseTenantDto']
 
 const API_ROOT = import.meta.env.VITE_API_ENDPOINT || ''
 const TENANTS_BASE = `${API_ROOT}/tenants`
@@ -9,7 +10,7 @@ const TENANTS_BASE = `${API_ROOT}/tenants`
 /**
  * Fetch all tenants from the API.
  */
-export async function fetchTenants(): Promise<any[]> {
+export async function fetchTenants(): Promise<Tenant[]> {
   const res = await fetch(TENANTS_BASE)
   if (!res.ok) {
     throw new Error('Failed to fetch tenants')
@@ -20,7 +21,7 @@ export async function fetchTenants(): Promise<any[]> {
 /**
  * Fetch a single tenant by ID.
  */
-export async function fetchTenantById(id: string): Promise<any> {
+export async function fetchTenantById(id: string): Promise<Tenant> {
   const res = await fetch(`${TENANTS_BASE}/${id}`)
   if (!res.ok) {
     throw new Error('Failed to fetch tenant')
@@ -31,7 +32,7 @@ export async function fetchTenantById(id: string): Promise<any> {
 /**
  * Create a new tenant.
  */
-export async function createTenant(data: CreateTenantDto): Promise<any> {
+export async function createTenant(data: CreateTenantDto): Promise<Tenant> {
   const res = await fetch(TENANTS_BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

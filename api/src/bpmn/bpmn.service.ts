@@ -3,7 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Engine } from 'bpmn-engine';
 import { EventEmitter } from 'events';
-import { ProcessDefinition, ProcessInstance, UserTaskInstance } from '../entities';
+import { ProcessDefinition } from '../process-definitions/entities/process-definition.entity';
+import { ProcessInstance } from '../process-instances/entities/process-instance.entity';
+import { UserTaskInstance } from '../user-task-instances/entities/user-task-instance.entity';
 
 @Injectable()
 export class BpmnService {

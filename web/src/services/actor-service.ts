@@ -2,11 +2,12 @@ import type { components } from '../types/api.d.ts'
 
 export type CreateActorDto = components['schemas']['CreateActorDto']
 export type UpdateActorDto = components['schemas']['UpdateActorDto']
+export type Actor = components['schemas']['ResponseActorDto']
 
 const API_ROOT = import.meta.env.VITE_API_ENDPOINT || ''
 const ACTORS_BASE = `${API_ROOT}/actors`
 
-export async function fetchActors(): Promise<any[]> {
+export async function fetchActors(): Promise<Actor[]> {
   const res = await fetch(ACTORS_BASE)
   if (!res.ok) {
     throw new Error('Failed to fetch actors')
@@ -14,7 +15,7 @@ export async function fetchActors(): Promise<any[]> {
   return res.json()
 }
 
-export async function fetchActorById(id: string): Promise<any> {
+export async function fetchActorById(id: string): Promise<Actor> {
   const res = await fetch(`${ACTORS_BASE}/${id}`)
   if (!res.ok) {
     throw new Error('Failed to fetch actor')
@@ -22,7 +23,7 @@ export async function fetchActorById(id: string): Promise<any> {
   return res.json()
 }
 
-export async function createActor(data: CreateActorDto): Promise<any> {
+export async function createActor(data: CreateActorDto): Promise<Actor> {
   const res = await fetch(ACTORS_BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

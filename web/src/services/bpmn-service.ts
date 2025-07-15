@@ -2,6 +2,7 @@ import type { components } from '../types/api.d.ts'
 
 export type CreateProcessDefinitionDto = components['schemas']['CreateProcessDefinitionDto']
 export type UpdateProcessDefinitionDto = components['schemas']['UpdateProcessDefinitionDto']
+export type ProcessDefinition = components['schemas']['ResponseProcessDefinitionDto']
 
 const API_ROOT = import.meta.env.VITE_API_ENDPOINT || ''
 const API_BASE = `${API_ROOT}/process-definitions`
@@ -9,7 +10,7 @@ const API_BASE = `${API_ROOT}/process-definitions`
 /**
  * Fetch all BPMN process definitions from the API.
  */
-export async function fetchProcessDefinitions(): Promise<any[]> {
+export async function fetchProcessDefinitions(): Promise<ProcessDefinition[]> {
   const res = await fetch(API_BASE)
   if (!res.ok) {
     throw new Error('Failed to fetch process definitions')
@@ -20,7 +21,7 @@ export async function fetchProcessDefinitions(): Promise<any[]> {
 /**
  * Fetch a single BPMN process definition by ID.
  */
-export async function fetchProcessDefinitionById(id: string): Promise<any> {
+export async function fetchProcessDefinitionById(id: string): Promise<ProcessDefinition> {
   const res = await fetch(`${API_BASE}/${id}`)
   if (!res.ok) {
     throw new Error('Failed to fetch process definition')
@@ -31,7 +32,7 @@ export async function fetchProcessDefinitionById(id: string): Promise<any> {
 /**
  * Create a new BPMN process definition.
  */
-export async function createProcessDefinition(data: CreateProcessDefinitionDto): Promise<any> {
+export async function createProcessDefinition(data: CreateProcessDefinitionDto): Promise<ProcessDefinition> {
   const res = await fetch(API_BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

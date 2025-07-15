@@ -19,10 +19,10 @@ import { Route as AdminActorsIndexRouteImport } from './routes/admin/actors/inde
 import { Route as AdminActorGroupsIndexRouteImport } from './routes/admin/actor-groups/index'
 import { Route as AdminTenantsNewRouteImport } from './routes/admin/tenants/new'
 import { Route as AdminProcessDefinitionsNewRouteImport } from './routes/admin/process-definitions/new'
-import { Route as AdminProcessDefinitionsIdRouteImport } from './routes/admin/process-definitions/$id'
 import { Route as AdminActorsNewRouteImport } from './routes/admin/actors/new'
 import { Route as AdminActorGroupsNewRouteImport } from './routes/admin/actor-groups/new'
 import { Route as AdminTenantsIdEditRouteImport } from './routes/admin/tenants/$id/edit'
+import { Route as AdminProcessDefinitionsIdEditRouteImport } from './routes/admin/process-definitions/$id/edit'
 import { Route as AdminActorsIdEditRouteImport } from './routes/admin/actors/$id/edit'
 import { Route as AdminActorGroupsIdEditRouteImport } from './routes/admin/actor-groups/$id/edit'
 
@@ -78,12 +78,6 @@ const AdminProcessDefinitionsNewRoute =
     path: '/admin/process-definitions/new',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AdminProcessDefinitionsIdRoute =
-  AdminProcessDefinitionsIdRouteImport.update({
-    id: '/admin/process-definitions/$id',
-    path: '/admin/process-definitions/$id',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const AdminActorsNewRoute = AdminActorsNewRouteImport.update({
   id: '/admin/actors/new',
   path: '/admin/actors/new',
@@ -99,6 +93,12 @@ const AdminTenantsIdEditRoute = AdminTenantsIdEditRouteImport.update({
   path: '/admin/tenants/$id/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminProcessDefinitionsIdEditRoute =
+  AdminProcessDefinitionsIdEditRouteImport.update({
+    id: '/admin/process-definitions/$id/edit',
+    path: '/admin/process-definitions/$id/edit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AdminActorsIdEditRoute = AdminActorsIdEditRouteImport.update({
   id: '/admin/actors/$id/edit',
   path: '/admin/actors/$id/edit',
@@ -117,7 +117,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminIndexRoute
   '/admin/actor-groups/new': typeof AdminActorGroupsNewRoute
   '/admin/actors/new': typeof AdminActorsNewRoute
-  '/admin/process-definitions/$id': typeof AdminProcessDefinitionsIdRoute
   '/admin/process-definitions/new': typeof AdminProcessDefinitionsNewRoute
   '/admin/tenants/new': typeof AdminTenantsNewRoute
   '/admin/actor-groups': typeof AdminActorGroupsIndexRoute
@@ -126,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/admin/tenants': typeof AdminTenantsIndexRoute
   '/admin/actor-groups/$id/edit': typeof AdminActorGroupsIdEditRoute
   '/admin/actors/$id/edit': typeof AdminActorsIdEditRoute
+  '/admin/process-definitions/$id/edit': typeof AdminProcessDefinitionsIdEditRoute
   '/admin/tenants/$id/edit': typeof AdminTenantsIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -135,7 +135,6 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/admin/actor-groups/new': typeof AdminActorGroupsNewRoute
   '/admin/actors/new': typeof AdminActorsNewRoute
-  '/admin/process-definitions/$id': typeof AdminProcessDefinitionsIdRoute
   '/admin/process-definitions/new': typeof AdminProcessDefinitionsNewRoute
   '/admin/tenants/new': typeof AdminTenantsNewRoute
   '/admin/actor-groups': typeof AdminActorGroupsIndexRoute
@@ -144,6 +143,7 @@ export interface FileRoutesByTo {
   '/admin/tenants': typeof AdminTenantsIndexRoute
   '/admin/actor-groups/$id/edit': typeof AdminActorGroupsIdEditRoute
   '/admin/actors/$id/edit': typeof AdminActorsIdEditRoute
+  '/admin/process-definitions/$id/edit': typeof AdminProcessDefinitionsIdEditRoute
   '/admin/tenants/$id/edit': typeof AdminTenantsIdEditRoute
 }
 export interface FileRoutesById {
@@ -154,7 +154,6 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/admin/actor-groups/new': typeof AdminActorGroupsNewRoute
   '/admin/actors/new': typeof AdminActorsNewRoute
-  '/admin/process-definitions/$id': typeof AdminProcessDefinitionsIdRoute
   '/admin/process-definitions/new': typeof AdminProcessDefinitionsNewRoute
   '/admin/tenants/new': typeof AdminTenantsNewRoute
   '/admin/actor-groups/': typeof AdminActorGroupsIndexRoute
@@ -163,6 +162,7 @@ export interface FileRoutesById {
   '/admin/tenants/': typeof AdminTenantsIndexRoute
   '/admin/actor-groups/$id/edit': typeof AdminActorGroupsIdEditRoute
   '/admin/actors/$id/edit': typeof AdminActorsIdEditRoute
+  '/admin/process-definitions/$id/edit': typeof AdminProcessDefinitionsIdEditRoute
   '/admin/tenants/$id/edit': typeof AdminTenantsIdEditRoute
 }
 export interface FileRouteTypes {
@@ -174,7 +174,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/actor-groups/new'
     | '/admin/actors/new'
-    | '/admin/process-definitions/$id'
     | '/admin/process-definitions/new'
     | '/admin/tenants/new'
     | '/admin/actor-groups'
@@ -183,6 +182,7 @@ export interface FileRouteTypes {
     | '/admin/tenants'
     | '/admin/actor-groups/$id/edit'
     | '/admin/actors/$id/edit'
+    | '/admin/process-definitions/$id/edit'
     | '/admin/tenants/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -192,7 +192,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/actor-groups/new'
     | '/admin/actors/new'
-    | '/admin/process-definitions/$id'
     | '/admin/process-definitions/new'
     | '/admin/tenants/new'
     | '/admin/actor-groups'
@@ -201,6 +200,7 @@ export interface FileRouteTypes {
     | '/admin/tenants'
     | '/admin/actor-groups/$id/edit'
     | '/admin/actors/$id/edit'
+    | '/admin/process-definitions/$id/edit'
     | '/admin/tenants/$id/edit'
   id:
     | '__root__'
@@ -210,7 +210,6 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/actor-groups/new'
     | '/admin/actors/new'
-    | '/admin/process-definitions/$id'
     | '/admin/process-definitions/new'
     | '/admin/tenants/new'
     | '/admin/actor-groups/'
@@ -219,6 +218,7 @@ export interface FileRouteTypes {
     | '/admin/tenants/'
     | '/admin/actor-groups/$id/edit'
     | '/admin/actors/$id/edit'
+    | '/admin/process-definitions/$id/edit'
     | '/admin/tenants/$id/edit'
   fileRoutesById: FileRoutesById
 }
@@ -229,7 +229,6 @@ export interface RootRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminActorGroupsNewRoute: typeof AdminActorGroupsNewRoute
   AdminActorsNewRoute: typeof AdminActorsNewRoute
-  AdminProcessDefinitionsIdRoute: typeof AdminProcessDefinitionsIdRoute
   AdminProcessDefinitionsNewRoute: typeof AdminProcessDefinitionsNewRoute
   AdminTenantsNewRoute: typeof AdminTenantsNewRoute
   AdminActorGroupsIndexRoute: typeof AdminActorGroupsIndexRoute
@@ -238,6 +237,7 @@ export interface RootRouteChildren {
   AdminTenantsIndexRoute: typeof AdminTenantsIndexRoute
   AdminActorGroupsIdEditRoute: typeof AdminActorGroupsIdEditRoute
   AdminActorsIdEditRoute: typeof AdminActorsIdEditRoute
+  AdminProcessDefinitionsIdEditRoute: typeof AdminProcessDefinitionsIdEditRoute
   AdminTenantsIdEditRoute: typeof AdminTenantsIdEditRoute
 }
 
@@ -313,13 +313,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProcessDefinitionsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/process-definitions/$id': {
-      id: '/admin/process-definitions/$id'
-      path: '/admin/process-definitions/$id'
-      fullPath: '/admin/process-definitions/$id'
-      preLoaderRoute: typeof AdminProcessDefinitionsIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin/actors/new': {
       id: '/admin/actors/new'
       path: '/admin/actors/new'
@@ -339,6 +332,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/tenants/$id/edit'
       fullPath: '/admin/tenants/$id/edit'
       preLoaderRoute: typeof AdminTenantsIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/process-definitions/$id/edit': {
+      id: '/admin/process-definitions/$id/edit'
+      path: '/admin/process-definitions/$id/edit'
+      fullPath: '/admin/process-definitions/$id/edit'
+      preLoaderRoute: typeof AdminProcessDefinitionsIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/actors/$id/edit': {
@@ -365,7 +365,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminActorGroupsNewRoute: AdminActorGroupsNewRoute,
   AdminActorsNewRoute: AdminActorsNewRoute,
-  AdminProcessDefinitionsIdRoute: AdminProcessDefinitionsIdRoute,
   AdminProcessDefinitionsNewRoute: AdminProcessDefinitionsNewRoute,
   AdminTenantsNewRoute: AdminTenantsNewRoute,
   AdminActorGroupsIndexRoute: AdminActorGroupsIndexRoute,
@@ -374,6 +373,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminTenantsIndexRoute: AdminTenantsIndexRoute,
   AdminActorGroupsIdEditRoute: AdminActorGroupsIdEditRoute,
   AdminActorsIdEditRoute: AdminActorsIdEditRoute,
+  AdminProcessDefinitionsIdEditRoute: AdminProcessDefinitionsIdEditRoute,
   AdminTenantsIdEditRoute: AdminTenantsIdEditRoute,
 }
 export const routeTree = rootRouteImport

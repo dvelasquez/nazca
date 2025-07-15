@@ -1,8 +1,8 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useRef, useState, useEffect } from 'react'
-import { fetchTenants } from '../../../services/tenant-service'
-import { fetchProcessDefinitionById, updateProcessDefinition } from '../../../services/bpmn-service'
-import BpmnEditor from '../../../components/bpmn/Editor'
+import { fetchTenants, type Tenant } from '../../../../services/tenant-service'
+import { fetchProcessDefinitionById, updateProcessDefinition, type ProcessDefinition } from '../../../../services/bpmn-service'
+import BpmnEditorToolbar from '../../../../components/bpmn/BpmnEditorToolbar'
 import Modeler from 'bpmn-js/lib/Modeler'
 import {
   BpmnPropertiesPanelModule,
@@ -10,7 +10,7 @@ import {
 } from 'bpmn-js-properties-panel';
 import '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
 
-export const Route = createFileRoute('/admin/process-definitions/$id')({
+export const Route = createFileRoute('/admin/process-definitions/$id/edit')({
   loader: async ({ params }) => {
     const tenants = await fetchTenants()
     const processDefinition = await fetchProcessDefinitionById(params.id)
@@ -19,7 +19,8 @@ export const Route = createFileRoute('/admin/process-definitions/$id')({
   component: EditProcessDefinitionEditor,
 })
 
-function EditProcessDefinitionEditor({ loader }) {
+function EditProcessDefinitionEditor() {
+  const loader = Route.useLoaderData()
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -44,7 +45,9 @@ function EditProcessDefinitionEditor({ loader }) {
       ],
     }
     modelerRef.current = new Modeler(options)
-    modelerRef.current.importXML(loader.processDefinition.bpmnXml)
+    if (loader.processDefinition.bpmnXml && loader.processDefinition.bpmnXml.trim()) {
+      modelerRef.current.importXML(loader.processDefinition.bpmnXml)
+    }
     return () => {
       modelerRef.current?.destroy()
       modelerRef.current = null
@@ -85,29 +88,66 @@ function EditProcessDefinitionEditor({ loader }) {
     }
   }
 
+  // Handle XML import from file input
+  async function handleImportXml(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setIsLoading(true)
+    setError(null)
+    try {
+      const text = await file.text()
+      if (text && text.trim()) {
+        await modelerRef.current?.importXML(text)
+      } else {
+        setError('The selected file is empty or not valid XML.')
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to import XML')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Find the selected tenant object
+  const tenant = loader.tenants.find((t: Tenant) => t.id === selectedTenantId) || null
+
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">Edit Process Definition</h1>
-      <BpmnEditor
-        models={[]}
-        selectedProcessDefinitionId={loader.processDefinition.id}
-        onSelectProcessDefinition={() => {}}
-        onNewProcessDefinition={() => {}}
-        onSave={handleSave}
-        onImport={() => {}}
-        onExportXml={() => {}}
-        onReset={() => {}}
+      <BpmnEditorToolbar
         processDefinitionName={processDefinitionName}
-        onProcessDefinitionNameChange={e => setProcessDefinitionName(e.target.value)}
+        onProcessDefinitionNameChange={(e: React.ChangeEvent<HTMLInputElement>) => setProcessDefinitionName(e.target.value)}
+        onImportXml={handleImportXml}
+        onSave={handleSave}
         isLoading={isLoading}
         error={error}
+        tenant={tenant}
         tenants={loader.tenants}
-        selectedTenantId={selectedTenantId}
         onSelectTenant={setSelectedTenantId}
-        containerRef={containerRef}
-        modelerRef={modelerRef}
-        propertiesPanelRef={propertiesPanelRef}
       />
+      <div style={{ height: 24 }} />
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div style={{ flex: 1 }}>
+          <div
+            ref={containerRef}
+            className="bpmn-container"
+            style={{
+              width: '100%',
+              height: '600px',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              minHeight: '400px',
+              background: '#fff',
+            }}
+            data-testid="bpmn-editor-canvas"
+          />
+        </div>
+        <div
+          ref={propertiesPanelRef}
+          className="bpmn-properties-panel"
+          style={{ width: 350, minWidth: 250, height: 600, borderLeft: '1px solid #ccc', background: '#fafafa', overflow: 'auto' }}
+        />
+      </div>
     </div>
   )
 } 

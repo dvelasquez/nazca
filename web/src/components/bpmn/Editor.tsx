@@ -2,13 +2,17 @@
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
+import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+
 import Modeler from 'bpmn-js/lib/Modeler'
 
-import type { ProcessDefinitionWithRelations } from '../../services/bpmn-service'
+import type { ProcessDefinition } from '@/services/bpmn-service'
 import BpmnEditorToolbar from './BpmnEditorToolbar'
+import type { Tenant } from '@/services/tenant-service'
 
 interface BpmnEditorProps {
-  models: ProcessDefinitionWithRelations[]
+  models: ProcessDefinition[]
   selectedProcessDefinitionId: string | null
   onSelectProcessDefinition: (id: string | null) => void
   onNewProcessDefinition: () => void
@@ -20,12 +24,12 @@ interface BpmnEditorProps {
   onProcessDefinitionNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   isLoading: boolean
   error: string | null
-  tenants: any[]
+  tenants: Tenant[]
   selectedTenantId: string | null
   onSelectTenant: (id: string | null) => void
   containerRef: React.RefObject<HTMLDivElement | null>
-  modelerRef: React.RefObject<Modeler>
-  propertiesPanelRef: React.RefObject<HTMLDivElement>
+  modelerRef: React.RefObject<Modeler | null>
+  propertiesPanelRef: React.RefObject<HTMLDivElement | null>
 }
 
 function BpmnEditor(props: BpmnEditorProps) {

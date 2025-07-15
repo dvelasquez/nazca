@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { Tenant } from './tenant.entity';
-import { ProcessDefinition } from './process-definition.entity';
-import { UserTaskInstance } from './user-task-instance.entity';
+import { BaseEntity } from '../../entities/base.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { ProcessDefinition } from '../../process-definitions/entities/process-definition.entity';
+import { UserTaskInstance } from '../../user-task-instances/entities/user-task-instance.entity';
 
 @Entity()
 export class ProcessInstance extends BaseEntity {

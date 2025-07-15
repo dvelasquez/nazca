@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProcessDefinition, ProcessInstance } from '../entities';
+import { ProcessDefinition } from './entities/process-definition.entity';
+import { ProcessInstance } from '../process-instances/entities/process-instance.entity';
 
 @Injectable()
 export class ProcessDefinitionsService {

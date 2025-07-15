@@ -101,15 +101,41 @@ export interface paths {
   "/user-task-instances/{id}/assignee": {
     get: operations["UserTaskInstancesController_findAssignee"];
   };
+  "/users": {
+    get: operations["UsersController_findAll"];
+    post: operations["UsersController_create"];
+  };
+  "/users/{id}": {
+    get: operations["UsersController_findOne"];
+    delete: operations["UsersController_remove"];
+    patch: operations["UsersController_update"];
+  };
 }
 
 export interface components {
   schemas: {
+    ResponseTenantDto: {
+      id: string;
+      name: string;
+      /** Format: date-time */
+      createdAt: string;
+      /** Format: date-time */
+      updatedAt: string;
+    };
     CreateTenantDto: {
       name: string;
     };
     UpdateTenantDto: {
       name?: string;
+    };
+    ResponseActorGroupDto: {
+      id: string;
+      name: string;
+      tenantId: string;
+      /** Format: date-time */
+      createdAt: string;
+      /** Format: date-time */
+      updatedAt: string;
     };
     CreateActorGroupDto: {
       name: string;
@@ -118,6 +144,17 @@ export interface components {
     UpdateActorGroupDto: {
       name?: string;
       tenantId?: string;
+    };
+    ResponseActorDto: {
+      id: string;
+      name: string;
+      email: string;
+      tenantId: string;
+      actorGroupId?: string;
+      /** Format: date-time */
+      createdAt: string;
+      /** Format: date-time */
+      updatedAt: string;
     };
     CreateActorDto: {
       name: string;
@@ -131,15 +168,37 @@ export interface components {
       tenantId?: string;
       actorGroupId?: string;
     };
+    ResponseProcessDefinitionDto: {
+      id: string;
+      name: string;
+      bpmnXml: string;
+      tenantId: string;
+      /** Format: date-time */
+      createdAt: string;
+      /** Format: date-time */
+      updatedAt: string;
+    };
     CreateProcessDefinitionDto: {
       name: string;
       bpmnXml: string;
       tenantId: string;
     };
     UpdateProcessDefinitionDto: {
-      name?: string;
+      name: string;
       bpmnXml?: string;
-      tenantId?: string;
+      tenantId: string;
+    };
+    ResponseProcessInstanceDto: {
+      id: string;
+      status: string;
+      variables?: { [key: string]: unknown };
+      state?: { [key: string]: unknown };
+      tenantId: string;
+      processDefinitionId: string;
+      /** Format: date-time */
+      createdAt: string;
+      /** Format: date-time */
+      updatedAt: string;
     };
     CreateProcessInstanceDto: {
       status: string;
@@ -155,6 +214,18 @@ export interface components {
       tenantId?: string;
       processDefinitionId?: string;
     };
+    ResponseUserTaskInstanceDto: {
+      id: string;
+      taskId: string;
+      status: string;
+      tenantId: string;
+      processInstanceId: string;
+      assigneeId?: string;
+      /** Format: date-time */
+      createdAt: string;
+      /** Format: date-time */
+      updatedAt: string;
+    };
     CreateUserTaskInstanceDto: {
       taskId: string;
       status: string;
@@ -169,6 +240,15 @@ export interface components {
       processInstanceId?: string;
       assigneeId?: string;
     };
+    CreateUserDto: { [key: string]: unknown };
+    ResponseUserDto: {
+      id: string;
+      /** Format: date-time */
+      createdAt: string;
+      /** Format: date-time */
+      updatedAt: string;
+    };
+    UpdateUserDto: { [key: string]: unknown };
   };
 }
 
@@ -188,13 +268,21 @@ export interface operations {
   TenantsController_findAll: {
     parameters: {};
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseTenantDto"][];
+        };
+      };
     };
   };
   TenantsController_updateAll: {
     parameters: {};
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseTenantDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -205,7 +293,11 @@ export interface operations {
   TenantsController_create: {
     parameters: {};
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseTenantDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -216,7 +308,11 @@ export interface operations {
   TenantsController_count: {
     parameters: {};
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": number;
+        };
+      };
     };
   };
   TenantsController_findOne: {
@@ -226,7 +322,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseTenantDto"];
+        };
+      };
     };
   };
   TenantsController_update: {
@@ -236,7 +336,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseTenantDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -251,7 +355,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseTenantDto"];
+        };
+      };
     };
   };
   TenantsController_replaceById: {
@@ -261,7 +369,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseTenantDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -276,7 +388,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": { [key: string]: unknown }[];
+        };
+      };
     };
   };
   TenantsController_findActorGroups: {
@@ -286,7 +402,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": { [key: string]: unknown }[];
+        };
+      };
     };
   };
   TenantsController_findProcessDefinitions: {
@@ -296,19 +416,31 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": { [key: string]: unknown }[];
+        };
+      };
     };
   };
   ActorGroupsController_findAll: {
     parameters: {};
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorGroupDto"][];
+        };
+      };
     };
   };
   ActorGroupsController_create: {
     parameters: {};
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorGroupDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -323,7 +455,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorGroupDto"];
+        };
+      };
     };
   };
   ActorGroupsController_update: {
@@ -333,7 +469,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorGroupDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -348,7 +488,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorGroupDto"];
+        };
+      };
     };
   };
   ActorGroupsController_findActors: {
@@ -358,7 +502,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"][];
+        };
+      };
     };
   };
   ActorGroupsController_createActor: {
@@ -368,7 +516,11 @@ export interface operations {
       };
     };
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -383,7 +535,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"];
+        };
+      };
     };
   };
   ActorGroupsController_patchActors: {
@@ -393,7 +549,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -404,13 +564,21 @@ export interface operations {
   ActorsController_findAll: {
     parameters: {};
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"][];
+        };
+      };
     };
   };
   ActorsController_create: {
     parameters: {};
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -425,7 +593,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"];
+        };
+      };
     };
   };
   ActorsController_update: {
@@ -435,7 +607,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -450,19 +626,31 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseActorDto"];
+        };
+      };
     };
   };
   ProcessDefinitionsController_findAll: {
     parameters: {};
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessDefinitionDto"][];
+        };
+      };
     };
   };
   ProcessDefinitionsController_create: {
     parameters: {};
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessDefinitionDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -477,7 +665,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessDefinitionDto"];
+        };
+      };
     };
   };
   ProcessDefinitionsController_update: {
@@ -487,7 +679,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessDefinitionDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -502,7 +698,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessDefinitionDto"];
+        };
+      };
     };
   };
   ProcessDefinitionsController_findProcessInstances: {
@@ -512,7 +712,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"][];
+        };
+      };
     };
   };
   ProcessDefinitionsController_createProcessInstance: {
@@ -522,7 +726,11 @@ export interface operations {
       };
     };
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -537,7 +745,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"];
+        };
+      };
     };
   };
   ProcessDefinitionsController_patchProcessInstances: {
@@ -547,7 +759,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -558,13 +774,21 @@ export interface operations {
   ProcessInstancesController_findAll: {
     parameters: {};
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"][];
+        };
+      };
     };
   };
   ProcessInstancesController_create: {
     parameters: {};
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -579,7 +803,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"];
+        };
+      };
     };
   };
   ProcessInstancesController_update: {
@@ -589,7 +817,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -604,7 +836,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseProcessInstanceDto"];
+        };
+      };
     };
   };
   ProcessInstancesController_findUserTaskInstances: {
@@ -614,7 +850,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"][];
+        };
+      };
     };
   };
   ProcessInstancesController_createUserTaskInstance: {
@@ -624,7 +864,11 @@ export interface operations {
       };
     };
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -639,7 +883,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"];
+        };
+      };
     };
   };
   ProcessInstancesController_patchUserTaskInstances: {
@@ -649,7 +897,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -660,13 +912,21 @@ export interface operations {
   UserTaskInstancesController_findAll: {
     parameters: {};
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"][];
+        };
+      };
     };
   };
   UserTaskInstancesController_create: {
     parameters: {};
     responses: {
-      201: unknown;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -681,7 +941,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"];
+        };
+      };
     };
   };
   UserTaskInstancesController_update: {
@@ -691,7 +955,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"];
+        };
+      };
     };
     requestBody: {
       content: {
@@ -706,7 +974,11 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserTaskInstanceDto"];
+        };
+      };
     };
   };
   UserTaskInstancesController_findAssignee: {
@@ -716,7 +988,83 @@ export interface operations {
       };
     };
     responses: {
-      200: unknown;
+      200: {
+        content: {
+          "application/json": { [key: string]: unknown };
+        };
+      };
+    };
+  };
+  UsersController_findAll: {
+    parameters: {};
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserDto"][];
+        };
+      };
+    };
+  };
+  UsersController_create: {
+    parameters: {};
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserDto"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateUserDto"];
+      };
+    };
+  };
+  UsersController_findOne: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserDto"];
+        };
+      };
+    };
+  };
+  UsersController_remove: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserDto"];
+        };
+      };
+    };
+  };
+  UsersController_update: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ResponseUserDto"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateUserDto"];
+      };
     };
   };
 }

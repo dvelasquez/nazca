@@ -2,11 +2,12 @@ import type { components } from '../types/api.d.ts'
 
 export type CreateActorGroupDto = components['schemas']['CreateActorGroupDto']
 export type UpdateActorGroupDto = components['schemas']['UpdateActorGroupDto']
+export type ActorGroup = components['schemas']['ResponseActorGroupDto']
 
 const API_ROOT = import.meta.env.VITE_API_ENDPOINT || ''
 const ACTOR_GROUPS_BASE = `${API_ROOT}/actor-groups`
 
-export async function fetchActorGroups(): Promise<any[]> {
+export async function fetchActorGroups(): Promise<ActorGroup[]> {
   const res = await fetch(ACTOR_GROUPS_BASE)
   if (!res.ok) {
     throw new Error('Failed to fetch actor groups')
@@ -14,7 +15,7 @@ export async function fetchActorGroups(): Promise<any[]> {
   return res.json()
 }
 
-export async function fetchActorGroupById(id: string): Promise<any> {
+export async function fetchActorGroupById(id: string): Promise<ActorGroup> {
   const res = await fetch(`${ACTOR_GROUPS_BASE}/${id}`)
   if (!res.ok) {
     throw new Error('Failed to fetch actor group')
@@ -22,7 +23,7 @@ export async function fetchActorGroupById(id: string): Promise<any> {
   return res.json()
 }
 
-export async function createActorGroup(data: CreateActorGroupDto): Promise<any> {
+export async function createActorGroup(data: CreateActorGroupDto): Promise<ActorGroup> {
   const res = await fetch(ACTOR_GROUPS_BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

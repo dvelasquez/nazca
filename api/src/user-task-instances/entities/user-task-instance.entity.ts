@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { Tenant } from './tenant.entity';
-import { ProcessInstance } from './process-instance.entity';
-import { Actor } from './actor.entity';
+import { BaseEntity } from '../../entities/base.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { ProcessInstance } from '../../process-instances/entities/process-instance.entity';
+import { Actor } from '../../actors/entities/actor.entity';
 
 @Entity()
 export class UserTaskInstance extends BaseEntity {
